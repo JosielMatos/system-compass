@@ -1,5 +1,7 @@
-export function Button() {
-  return (
-    <button>Button</button>
-  )
+interface ButtonProps {
+  label: string;
+}
+
+export function Button({ label }: ButtonProps) {
+  return <button type="submit">{label}</button>;
 }
