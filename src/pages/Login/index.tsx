@@ -22,7 +22,7 @@ export function Login() {
             <Button label='Logar-se' />
           </form>
           <p className={styles["new-here"]}>
-            Novo por aqui? <a href='#'>Registre-se</a>
+            Novo por aqui? <a href='/register'>Registre-se</a>
           </p>
         </div>
       </section>
