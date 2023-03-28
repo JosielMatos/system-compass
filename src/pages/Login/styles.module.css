@@ -41,7 +41,8 @@
 }
 
 ::-ms-reveal {
-  filter: invert(100%);
+  /* filter: invert(100%); */
+  display: none;
 }
 
 .input::placeholder {
@@ -52,8 +53,14 @@
   margin-bottom: 2rem;
 }
 
-a {
-  font-weight: 600;
+.user-icon {
+  background: url(../../assets/user-icon.svg) no-repeat;
+  background-position: 95% 45%;
+}
+
+.password-icon {
+  background: url(../../assets/lock-icon.svg) no-repeat;
+  background-position: 95% 45%;
 }
 
 .form-bottom {

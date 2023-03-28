@@ -17,8 +17,8 @@ export function Login() {
           <Header text={text} />
           <form onSubmit={validate} className={styles['form-wrapper']}>
             <h3 className={styles['form-label']}>Login</h3>
-            <input type='text' placeholder='Usuário' className={styles.input} />
-            <input type='password' placeholder='Senha' className={styles.input} />
+            <input type='text' placeholder='Usuário' className={`${styles.input} ${styles['user-icon']}`} />
+            <input type='password' placeholder='Senha' className={`${styles.input} ${styles['password-icon']}`} />
             <Button label='Logar-se' />
           </form>
           <p className={styles["form-bottom"]}>
