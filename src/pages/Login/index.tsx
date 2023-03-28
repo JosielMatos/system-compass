@@ -1,5 +1,4 @@
 import { Button } from "../../components/Button";
-import { Form } from "../../components/Form";
 import { Header } from "../../components/Header";
 
 import styles from "./styles.module.css";
