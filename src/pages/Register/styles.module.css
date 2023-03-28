@@ -16,13 +16,13 @@
   min-height: 1024px;
 }
 
+.form-wrapper {
+  margin-top: 6rem;
+}
+
 .wrapper {
   max-width: 406px;
   margin: auto 0;
-}
-
-.form-wrapper {
-  margin-top: 6rem;
 }
 
 .form-label {
@@ -49,6 +49,10 @@
 }
 
 .input + .input {
+  margin-top: 2rem;
+}
+
+.input:nth-child(7) {
   margin-bottom: 2rem;
 }
 

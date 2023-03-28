@@ -11,17 +11,17 @@ export function Login() {
   }
 
   return (
-    <main>
+    <main className={styles['main-wrapper']}>
       <section className={styles["left-side"]}>
         <div className={styles.wrapper}>
           <Header text={text} />
-          <form onSubmit={validate}>
-            <h3>Login</h3>
+          <form onSubmit={validate} className={styles['form-wrapper']}>
+            <h3 className={styles['form-label']}>Login</h3>
             <input type='text' placeholder='Usuário' className={styles.input} />
             <input type='password' placeholder='Senha' className={styles.input} />
             <Button label='Logar-se' />
           </form>
-          <p className={styles["new-here"]}>
+          <p className={styles["form-bottom"]}>
             Novo por aqui? <a href='/register'>Registre-se</a>
           </p>
         </div>
