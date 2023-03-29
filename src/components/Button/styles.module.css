@@ -4,7 +4,7 @@
   background: linear-gradient(180deg, #ad2d14 0%, #f42e07 100%);
   border: 1px solid #fe2e05;
   border-radius: 2.875rem;
-  color: #f5f5f5;
+  color: var(--default-white);
   font-weight: 600;
   font-size: 1rem;
   transition: filter 0.2s;

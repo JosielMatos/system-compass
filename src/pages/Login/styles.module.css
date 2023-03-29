@@ -32,21 +32,16 @@
 
 .input {
   width: 100%;
-  border: 2px solid #f5f5f5;
+  border: 2px solid var(--default-white);
   border-radius: 2.875rem;
   background: transparent;
   padding: 1.1875rem 1.5rem;
   margin-top: 2rem;
-  color: #f5f5f5;
-}
-
-::-ms-reveal {
-  /* filter: invert(100%); */
-  display: none;
+  color: var(--default-white);
 }
 
 .input::placeholder {
-  color: #f5f5f5;
+  color: var(--default-white);
 }
 
 .input + .input {
@@ -70,11 +65,11 @@
 }
 
 .invalid-credentials {
-  border-color: #E9B425;
+  border-color: var(--default-yellow);
 }
 
 .invalid-credentials-warn {
   text-align: center;
   margin-bottom: 2rem;
-  color: #E9B425;
+  color: var(--default-yellow);
 }
