@@ -1,6 +1,6 @@
 # System Compass
 
-A wonderful system made with the latest and greatest techology available.
+A wonderful system made with the latest and greatest technology available.
 
 ## How to run locally
 After cloning this repo, make sure you have the latest Node.js LTS installed in your system. Next, install the dependencies with the following command in your terminal:
