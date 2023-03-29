@@ -1,24 +1,63 @@
+import { FormEvent, useState } from "react";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 
 import styles from "./styles.module.css";
 
 export function Login() {
+  const [user, setUser] = useState("")
+  const [password, setPassword] = useState("")
+  const [invalidCredentials, setInvalidCredentials] = useState(false)
+
   const text = "Para continuar navegando de forma segura, efetue o login";
 
-  function validate() {
-    //todo
+  function handleUserChange(e: FormEvent<HTMLInputElement>) {
+    setUser(e.currentTarget.value);
+  }
+
+  function handlePasswordChange(e: FormEvent<HTMLInputElement>) {
+    setPassword(e.currentTarget.value)
+  }
+  
+  function validate(event: FormEvent) {
+    event.preventDefault();
+    const regexEmail = /josiel.matos@compass.com/;
+    const regexPassword = /1password/;
+    
+    if (!regexEmail.test(user) || !regexPassword.test(password)) {
+      setInvalidCredentials(true);
+      return;
+    }
+    
+    alert('Login Successful! Enjoy!')
   }
 
   return (
-    <main className={styles['main-wrapper']}>
+    <main className={styles["main-wrapper"]}>
       <section className={styles["left-side"]}>
         <div className={styles.wrapper}>
           <Header text={text} />
-          <form onSubmit={validate} className={styles['form-wrapper']}>
-            <h3 className={styles['form-label']}>Login</h3>
-            <input type='text' placeholder='Usuário' className={`${styles.input} ${styles['user-icon']}`} />
-            <input type='password' placeholder='Senha' className={`${styles.input} ${styles['password-icon']}`} />
+          <form onSubmit={validate} className={styles["form-wrapper"]}>
+            <h3 className={styles["form-label"]}>Login</h3>
+            <input
+              type='text'
+              placeholder='Usuário'
+              className={`${styles.input} ${styles["user-icon"]}`}
+              onChange={handleUserChange}
+              required
+            />
+            <input
+              type='password'
+              placeholder='Senha'
+              className={`${styles.input} ${styles["password-icon"]}`}
+              pattern=".{8,}"
+              required
+              title="Mínimo de 8 caracteres"
+              onChange={handlePasswordChange}
+            />
+
+            {invalidCredentials && (<p>Usuário e/ou Senha inválidos.<br /> Por favor, tente novamente!</p>)}
+
             <Button label='Logar-se' />
           </form>
           <p className={styles["form-bottom"]}>
