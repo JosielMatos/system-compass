@@ -95,3 +95,13 @@ a {
   margin-top: 2rem;
   text-align: center;
 }
+
+.passwords-not-match {
+  border-color: #E9B425;
+}
+
+.passwords-match-warn {
+  text-align: center;
+  color: #E9B425;
+  margin-bottom: 2rem;
+}

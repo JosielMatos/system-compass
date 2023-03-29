@@ -37,6 +37,7 @@ export function Register() {
           <Header text={text} />
           <form onSubmit={validate} className={styles["form-wrapper"]}>
             <h3 className={styles["form-label"]}>Registro</h3>
+            
             <input
               type='text'
               placeholder='Nome'
@@ -68,7 +69,9 @@ export function Register() {
               title='Mínimo de 8 caracteres'
               required
               onChange={handlePasswordChange}
-              className={`${styles.input} ${styles["password-field"]}`}
+              className={`${styles.input} ${styles["password-field"]} ${
+                !passwordsMatch && styles["passwords-not-match"]
+              }`}
             />
             <input
               type='password'
@@ -77,11 +80,13 @@ export function Register() {
               title='Mínimo de 8 caracteres'
               required
               onChange={handleConfirmPasswordChange}
-              className={`${styles.input} ${styles["confirm-password-field"]}`}
+              className={`${styles.input} ${styles["confirm-password-field"]} ${
+                !passwordsMatch && styles["passwords-not-match"]
+              }`}
             />
 
             {!passwordsMatch && (
-              <p className={styles["passwords-dont-match"]}>
+              <p className={styles["passwords-match-warn"]}>
                 As senhas não correspondem!
               </p>
             )}
