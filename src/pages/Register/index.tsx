@@ -17,8 +17,10 @@ export function Register() {
     setConfirmPassword(e.currentTarget.value);
   }
 
+  //Header Text
   const text = "Por favor, registre-se para continuar";
 
+  //Passwords validation
   function validate(event: FormEvent) {
     event.preventDefault();
 
@@ -37,7 +39,7 @@ export function Register() {
           <Header text={text} />
           <form onSubmit={validate} className={styles["form-wrapper"]}>
             <h3 className={styles["form-label"]}>Registro</h3>
-            
+
             <input
               type='text'
               placeholder='Nome'
