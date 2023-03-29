@@ -5,9 +5,9 @@ import { Header } from "../../components/Header";
 import styles from "./styles.module.css";
 
 export function Login() {
-  const [user, setUser] = useState("")
-  const [password, setPassword] = useState("")
-  const [invalidCredentials, setInvalidCredentials] = useState(false)
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+  const [invalidCredentials, setInvalidCredentials] = useState(false);
 
   const text = "Para continuar navegando de forma segura, efetue o login";
 
@@ -16,20 +16,23 @@ export function Login() {
   }
 
   function handlePasswordChange(e: FormEvent<HTMLInputElement>) {
-    setPassword(e.currentTarget.value)
+    setPassword(e.currentTarget.value);
   }
-  
+
+  //Credentials validation
   function validate(event: FormEvent) {
     event.preventDefault();
+
+    //Hardcoded credentials
     const regexEmail = /josiel.matos@compass.com/;
     const regexPassword = /1password/;
-    
+
     if (!regexEmail.test(user) || !regexPassword.test(password)) {
       setInvalidCredentials(true);
       return;
     }
-    
-    alert('Login Successful! Enjoy!')
+
+    alert("Login Successful! Enjoy!");
   }
 
   return (
@@ -37,29 +40,40 @@ export function Login() {
       <section className={styles["left-side"]}>
         <div className={styles.wrapper}>
           <Header text={text} />
+
           <form onSubmit={validate} className={styles["form-wrapper"]}>
             <h3 className={styles["form-label"]}>Login</h3>
             <input
               type='text'
               placeholder='Usuário'
-              className={`${styles.input} ${styles["user-icon"]}`}
+              className={`${styles.input} ${styles["user-icon"]} ${
+                invalidCredentials && styles["invalid-credentials"]
+              }`}
               onChange={handleUserChange}
               required
             />
             <input
               type='password'
               placeholder='Senha'
-              className={`${styles.input} ${styles["password-icon"]}`}
-              pattern=".{8,}"
+              className={`${styles.input} ${styles["password-icon"]} ${
+                invalidCredentials && styles["invalid-credentials"]
+              }`}
+              pattern='.{8,}'
               required
-              title="Mínimo de 8 caracteres"
+              title='Mínimo de 8 caracteres'
               onChange={handlePasswordChange}
             />
 
-            {invalidCredentials && (<p>Usuário e/ou Senha inválidos.<br /> Por favor, tente novamente!</p>)}
+            {invalidCredentials && (
+              <p className={styles["invalid-credentials-warn"]}>
+                Usuário e/ou Senha inválidos.
+                <br /> Por favor, tente novamente!
+              </p>
+            )}
 
             <Button label='Logar-se' />
           </form>
+
           <p className={styles["form-bottom"]}>
             Novo por aqui? <a href='/register'>Registre-se</a>
           </p>

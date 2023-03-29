@@ -68,3 +68,13 @@
   margin-top: 2rem;
   text-align: center;
 }
+
+.invalid-credentials {
+  border-color: #E9B425;
+}
+
+.invalid-credentials-warn {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #E9B425;
+}
