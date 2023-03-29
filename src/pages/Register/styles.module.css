@@ -44,6 +44,36 @@
   filter: invert(100%);
 }
 
+.name-field {
+  background: url(../../assets/name-icon.svg) no-repeat;
+  background-position: 95% 45%;
+}
+
+.user-field {
+  background: url(../../assets/user-icon.svg) no-repeat;
+  background-position: 95% 45%;
+}
+
+.birth-field {
+  background: url(../../assets/birth-icon.svg) no-repeat;
+  background-position: 95% 45%;
+}
+
+.email-field {
+  background: url(../../assets/email-icon.svg) no-repeat;
+  background-position: 95% 45%;
+}
+
+.password-field {
+  background: url(../../assets/lock-icon.svg) no-repeat;
+  background-position: 95% 45%;
+}
+
+.confirm-password-field {
+  background: url(../../assets/shield-icon.svg) no-repeat;
+  background-position: 95% 45%;
+}
+
 .input::placeholder {
   color: #f5f5f5;
 }

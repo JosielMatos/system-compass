@@ -17,23 +17,35 @@ export function Register() {
           <Header text={text} />
           <form onSubmit={validate} className={styles["form-wrapper"]}>
             <h3 className={styles["form-label"]}>Registro</h3>
-            <input type='text' placeholder='Nome' className={styles.input} />
-            <input type='text' placeholder='Usuário' className={styles.input} />
+            <input
+              type='text'
+              placeholder='Nome'
+              className={`${styles.input} ${styles["name-field"]}`}
+            />
+            <input
+              type='text'
+              placeholder='Usuário'
+              className={`${styles.input} ${styles["user-field"]}`}
+            />
             <input
               type='text'
               placeholder='Nascimento'
-              className={styles.input}
+              className={`${styles.input} ${styles["birth-field"]}`}
             />
-            <input type='text' placeholder='Email' className={styles.input} />
+            <input
+              type='text'
+              placeholder='Email'
+              className={`${styles.input} ${styles["email-field"]}`}
+            />
             <input
               type='password'
               placeholder='Senha'
-              className={styles.input}
+              className={`${styles.input} ${styles["password-field"]}`}
             />
             <input
               type='password'
               placeholder='Confirmar Senha'
-              className={styles.input}
+              className={`${styles.input} ${styles["confirm-password-field"]}`}
             />
             <Button label='Registrar-se' />
           </form>

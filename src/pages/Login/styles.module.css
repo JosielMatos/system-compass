@@ -53,12 +53,12 @@
   margin-bottom: 2rem;
 }
 
-.user-icon {
-  background: url(../../assets/user-icon.svg) no-repeat;
+.user-field {
+  background: url(../../assets/name-icon.svg) no-repeat;
   background-position: 95% 45%;
 }
 
-.password-icon {
+.password-field {
   background: url(../../assets/lock-icon.svg) no-repeat;
   background-position: 95% 45%;
 }

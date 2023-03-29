@@ -46,7 +46,7 @@ export function Login() {
             <input
               type='text'
               placeholder='Usuário'
-              className={`${styles.input} ${styles["user-icon"]} ${
+              className={`${styles.input} ${styles["user-field"]} ${
                 invalidCredentials && styles["invalid-credentials"]
               }`}
               onChange={handleUserChange}
@@ -55,7 +55,7 @@ export function Login() {
             <input
               type='password'
               placeholder='Senha'
-              className={`${styles.input} ${styles["password-icon"]} ${
+              className={`${styles.input} ${styles["password-field"]} ${
                 invalidCredentials && styles["invalid-credentials"]
               }`}
               pattern='.{8,}'
