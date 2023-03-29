@@ -33,3 +33,7 @@ a {
   color: var(--default-white);
   font-weight: 600;
 }
+
+::-ms-reveal {
+  display: none;
+}
