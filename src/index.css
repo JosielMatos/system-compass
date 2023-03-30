@@ -37,3 +37,7 @@ a {
 ::-ms-reveal {
   display: none;
 }
+
+input {
+  outline: none;
+}

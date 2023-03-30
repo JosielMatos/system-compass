@@ -12,7 +12,6 @@ export function Register() {
     watch,
   } = useForm<formData>();
 
-  //Passwords validation
   interface formData {
     name: string;
     userName: string;
@@ -25,6 +24,14 @@ export function Register() {
   function onSubmit(data: formData) {
     console.log(data);
   }
+
+  //Regex patterns
+  const namePattern = /[A-Z][a-zA-Z]*/;
+  const datePattern =
+    /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
+  const emailPattern =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
   return (
     <main className={styles["main-wrapper"]}>
@@ -40,50 +47,63 @@ export function Register() {
             <input
               type='text'
               placeholder='Nome'
+              title='Nome não pode conter números ou caracteres especiais'
               required
-              className={`${styles.input} ${styles["name-field"]}`}
-              {...register("name", { required: true })}
+              className={`${styles.input} ${styles["name-field"]} ${
+                errors.name && styles["invalid-input"]
+              }`}
+              {...register("name", { required: true, pattern: namePattern })}
             />
             <input
               type='text'
               placeholder='Usuário'
-              required
-              className={`${styles.input} ${styles["user-field"]}`}
+              title='Nome de usuário'
+              className={`${styles.input} ${styles["user-field"]} ${
+                errors.userName && styles["invalid-input"]
+              }`}
               {...register("userName", { required: true })}
             />
             <input
               type='text'
               placeholder='Nascimento'
+              title='A data deve preencher o formato dd/mm/aaaa, dd-mm-aaaa ou dd.mm.aaaa'
               required
-              className={`${styles.input} ${styles["birth-field"]}`}
-              {...register("birthDate", { required: true })}
+              className={`${styles.input} ${styles["birth-field"]} ${
+                errors.birthDate && styles["invalid-input"]
+              }`}
+              {...register("birthDate", {
+                required: true,
+                pattern: datePattern,
+              })}
             />
             <input
               type='email'
               placeholder='Email'
-              required
-              className={`${styles.input} ${styles["email-field"]}`}
-              {...register("email", { required: true })}
+              title='Insira um email válido!'
+              className={`${styles.input} ${styles["email-field"]} ${
+                errors.email && styles["invalid-input"]
+              }`}
+              {...register("email", { required: true, pattern: emailPattern })}
             />
             <input
               type='password'
               placeholder='Senha'
-              pattern='.{8,}'
-              title='Mínimo de 8 caracteres'
-              required
+              title='Mínimo de 8 caracteres, com pelo menos 1 letra maiúscula e 1 minúscula'
               className={`${styles.input} ${styles["password-field"]} ${
-                errors.confirmPassword && styles["passwords-not-match"]
+                (errors.password || errors.confirmPassword) &&
+                styles["invalid-input"]
               }`}
-              {...register("password", { required: true })}
+              {...register("password", {
+                required: true,
+                pattern: passwordPattern,
+              })}
             />
             <input
               type='password'
               placeholder='Confirmar Senha'
-              pattern='.{8,}'
-              title='Mínimo de 8 caracteres'
-              required
+              title='Precisa coincidir com a senha do campo anterior'
               className={`${styles.input} ${styles["confirm-password-field"]} ${
-                errors.confirmPassword && styles["passwords-not-match"]
+                errors.confirmPassword && styles["invalid-input"]
               }`}
               {...register("confirmPassword", {
                 required: true,

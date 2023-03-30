@@ -1,5 +1,6 @@
 .main-wrapper {
   display: flex;
+  height: 100vh;
 }
 
 .left-side {
@@ -14,6 +15,7 @@
   background-image: url(/side-image.png);
   background-size: cover;
   min-height: 1024px;
+  height: auto;
 }
 
 .form-wrapper {
@@ -89,7 +91,7 @@
   text-align: center;
 }
 
-.passwords-not-match {
+.invalid-input {
   border-color: var(--default-yellow);
 }
 

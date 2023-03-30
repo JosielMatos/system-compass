@@ -1,5 +1,6 @@
 .main-wrapper {
   display: flex;
+  height: 100vh;
 }
 
 .left-side {
@@ -13,7 +14,7 @@
   width: 50%;
   background-image: url(/side-image.png);
   background-size: cover;
-  min-height: 1024px;
+  height: auto;
 }
 
 .wrapper {
