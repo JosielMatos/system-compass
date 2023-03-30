@@ -1,43 +1,40 @@
-import { FormEvent, useState } from "react";
+import { useForm } from "react-hook-form";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 
 import styles from "./styles.module.css";
 
 export function Register() {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [passwordsMatch, setPasswordsMatch] = useState(true);
-
-  function handlePasswordChange(e: FormEvent<HTMLInputElement>) {
-    setPassword(e.currentTarget.value);
-  }
-
-  function handleConfirmPasswordChange(e: FormEvent<HTMLInputElement>) {
-    setConfirmPassword(e.currentTarget.value);
-  }
-
-  //Header Text
-  const text = "Por favor, registre-se para continuar";
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm<formData>();
 
   //Passwords validation
-  function validate(event: FormEvent) {
-    event.preventDefault();
+  interface formData {
+    name: string;
+    userName: string;
+    birthDate: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }
 
-    if (password !== confirmPassword) {
-      setPasswordsMatch(false);
-      return;
-    }
-
-    alert("All good!");
+  function onSubmit(data: formData) {
+    console.log(data);
   }
 
   return (
     <main className={styles["main-wrapper"]}>
       <section className={styles["left-side"]}>
         <div className={styles.wrapper}>
-          <Header text={text} />
-          <form onSubmit={validate} className={styles["form-wrapper"]}>
+          <Header text='Por favor, registre-se para continuar' />
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={styles["form-wrapper"]}
+          >
             <h3 className={styles["form-label"]}>Registro</h3>
 
             <input
@@ -45,24 +42,28 @@ export function Register() {
               placeholder='Nome'
               required
               className={`${styles.input} ${styles["name-field"]}`}
+              {...register("name", { required: true })}
             />
             <input
               type='text'
               placeholder='Usuário'
               required
               className={`${styles.input} ${styles["user-field"]}`}
+              {...register("userName", { required: true })}
             />
             <input
               type='text'
               placeholder='Nascimento'
               required
               className={`${styles.input} ${styles["birth-field"]}`}
+              {...register("birthDate", { required: true })}
             />
             <input
               type='email'
               placeholder='Email'
               required
               className={`${styles.input} ${styles["email-field"]}`}
+              {...register("email", { required: true })}
             />
             <input
               type='password'
@@ -70,10 +71,10 @@ export function Register() {
               pattern='.{8,}'
               title='Mínimo de 8 caracteres'
               required
-              onChange={handlePasswordChange}
               className={`${styles.input} ${styles["password-field"]} ${
-                !passwordsMatch && styles["passwords-not-match"]
+                errors.confirmPassword && styles["passwords-not-match"]
               }`}
+              {...register("password", { required: true })}
             />
             <input
               type='password'
@@ -81,15 +82,22 @@ export function Register() {
               pattern='.{8,}'
               title='Mínimo de 8 caracteres'
               required
-              onChange={handleConfirmPasswordChange}
               className={`${styles.input} ${styles["confirm-password-field"]} ${
-                !passwordsMatch && styles["passwords-not-match"]
+                errors.confirmPassword && styles["passwords-not-match"]
               }`}
+              {...register("confirmPassword", {
+                required: true,
+                validate: (value: string) => {
+                  if (watch("password") !== value) {
+                    return "As senhas não correspondem!";
+                  }
+                },
+              })}
             />
 
-            {!passwordsMatch && (
+            {errors.confirmPassword && (
               <p className={styles["passwords-match-warn"]}>
-                As senhas não correspondem!
+                {errors.confirmPassword.message}
               </p>
             )}
 

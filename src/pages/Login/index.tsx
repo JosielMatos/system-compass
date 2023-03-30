@@ -1,47 +1,42 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 
 import styles from "./styles.module.css";
 
 export function Login() {
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
   const [invalidCredentials, setInvalidCredentials] = useState(false);
+  const { register, handleSubmit } = useForm<formData>();
 
-  const text = "Para continuar navegando de forma segura, efetue o login";
-
-  function handleUserChange(e: FormEvent<HTMLInputElement>) {
-    setUser(e.currentTarget.value);
+  interface formData {
+    user: string;
+    password: string;
   }
 
-  function handlePasswordChange(e: FormEvent<HTMLInputElement>) {
-    setPassword(e.currentTarget.value);
-  }
+  function onSubmit(data: formData) {
+    const validEmail = /josiel.matos@compass.com/;
+    const validPassword = /1password/;
 
-  //Credentials validation
-  function validate(event: FormEvent) {
-    event.preventDefault();
-
-    //Hardcoded credentials
-    const regexEmail = /josiel.matos@compass.com/;
-    const regexPassword = /1password/;
-
-    if (!regexEmail.test(user) || !regexPassword.test(password)) {
+    if (!validEmail.test(data.user) || !validPassword.test(data.password)) {
       setInvalidCredentials(true);
       return;
     }
 
-    alert("Login Successful! Enjoy!");
+    console.log(data);
+    alert("All good");
   }
 
   return (
     <main className={styles["main-wrapper"]}>
       <section className={styles["left-side"]}>
         <div className={styles.wrapper}>
-          <Header text={text} />
+          <Header text='Para continuar navegando de forma segura, efetue o login' />
 
-          <form onSubmit={validate} className={styles["form-wrapper"]}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={styles["form-wrapper"]}
+          >
             <h3 className={styles["form-label"]}>Login</h3>
             <input
               type='text'
@@ -49,8 +44,8 @@ export function Login() {
               className={`${styles.input} ${styles["user-field"]} ${
                 invalidCredentials && styles["invalid-credentials"]
               }`}
-              onChange={handleUserChange}
               required
+              {...register("user", { required: true })}
             />
             <input
               type='password'
@@ -59,9 +54,9 @@ export function Login() {
                 invalidCredentials && styles["invalid-credentials"]
               }`}
               pattern='.{8,}'
-              required
               title='Mínimo de 8 caracteres'
-              onChange={handlePasswordChange}
+              required
+              {...register("password", { required: true })}
             />
 
             {invalidCredentials && (
