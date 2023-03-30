@@ -41,3 +41,11 @@ a {
 input {
   outline: none;
 }
+
+button {
+  font-family: 'Poppins', Inter, system-ui;
+}
+
+input::placeholder {
+  font-family: 'Poppins';
+}
