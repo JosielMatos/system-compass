@@ -16,7 +16,7 @@ export function Login() {
 
   function onSubmit(data: formData) {
     const validEmail = /josiel.matos@compass.com/;
-    const validPassword = /1password/;
+    const validPassword = /1Password/;
 
     if (!validEmail.test(data.user) || !validPassword.test(data.password)) {
       setInvalidCredentials(true);

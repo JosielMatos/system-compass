@@ -100,3 +100,18 @@
   color: var(--default-yellow);
   margin-bottom: 2rem;
 }
+
+@media (max-width: 760px) {
+  .right-side {
+    display: none;
+  }
+
+  .left-side {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .form-bottom {
+    margin-bottom: 2rem;
+  }
+}
