@@ -15,10 +15,10 @@ export function Login() {
   }
 
   function onSubmit(data: formData) {
-    const validEmail = /josiel.matos@compass.com/;
-    const validPassword = /1Password/;
+    const validEmail = "josiel.matos@compass.com";
+    const validPassword = "1Password";
 
-    if (!validEmail.test(data.user) || !validPassword.test(data.password)) {
+    if ((validEmail !== data.user) || (validPassword !== data.password)) {
       setInvalidCredentials(true);
       return;
     }
@@ -38,6 +38,7 @@ export function Login() {
             className={styles["form-wrapper"]}
           >
             <h3 className={styles["form-label"]}>Login</h3>
+
             <input
               type='text'
               placeholder='Usuário'
@@ -47,14 +48,13 @@ export function Login() {
               required
               {...register("user", { required: true })}
             />
+            
             <input
               type='password'
               placeholder='Senha'
               className={`${styles.input} ${styles["password-field"]} ${
                 invalidCredentials && styles["invalid-credentials"]
               }`}
-              pattern='.{8,}'
-              title='Mínimo de 8 caracteres'
               required
               {...register("password", { required: true })}
             />
