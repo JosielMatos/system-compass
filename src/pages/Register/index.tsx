@@ -22,7 +22,7 @@ export function Register() {
   }
 
   function onSubmit(data: formData) {
-    alert('Registered')
+    alert("Registered");
     console.log(data);
   }
 
@@ -55,6 +55,12 @@ export function Register() {
               }`}
               {...register("name", { required: true, pattern: namePattern })}
             />
+            {errors.name && (
+              <p className={styles["input-warn"]}>
+                Insira um nome válido
+              </p>
+            )}
+
             <input
               type='text'
               placeholder='Usuário'
@@ -64,6 +70,12 @@ export function Register() {
               }`}
               {...register("userName", { required: true })}
             />
+            {errors.userName && (
+              <p className={styles["input-warn"]}>
+                Insira um nome de usuário
+              </p>
+            )}
+
             <input
               type='text'
               placeholder='Nascimento'
@@ -77,6 +89,12 @@ export function Register() {
                 pattern: datePattern,
               })}
             />
+            {errors.birthDate && (
+              <p className={styles["input-warn"]}>
+                Insira uma data válida
+              </p>
+            )}
+
             <input
               type='email'
               placeholder='Email'
@@ -86,6 +104,12 @@ export function Register() {
               }`}
               {...register("email", { required: true, pattern: emailPattern })}
             />
+            {errors.email && (
+              <p className={styles["input-warn"]}>
+                Insira um email válido
+              </p>
+            )}
+
             <input
               type='password'
               placeholder='Senha'

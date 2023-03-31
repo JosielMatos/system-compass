@@ -81,7 +81,7 @@
   margin-top: 2rem;
 }
 
-.input:nth-child(7) {
+.input:last-of-type {
   margin-bottom: 2rem;
 }
 
@@ -93,6 +93,11 @@
 
 .invalid-input {
   border-color: var(--default-yellow);
+}
+
+.input-warn {
+  text-align: center;
+  color: var(--default-yellow);
 }
 
 .passwords-match-warn {
