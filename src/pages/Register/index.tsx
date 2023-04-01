@@ -29,7 +29,7 @@ export function Register() {
   //Regex patterns
   const namePattern = /[A-Z][a-zA-Z]+$/;
   const datePattern =
-    /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(([1][26]|[2468][048]|[3579][26])00))))$/g;
+    /^(0[1-9]|[1-2][0-8])\/(0[1-9]|1[0-2])\/(19[0-9]{2}|20[0-1][0-9]|202[0-2])$|^(29|30)\/(0[469]|11)\/(19[0-9]{2}|20[0-1][0-9]|202[0-2])$|^(29|30|31)\/(0[13578]|1[02])\/(19[0-9]{2}|20[0-1][0-9]|202[0-2])$/;
   const emailPattern =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
@@ -75,7 +75,7 @@ export function Register() {
             <input
               type='text'
               placeholder='Nascimento'
-              title='A data deve preencher o formato dd/mm/aaaa, dd-mm-aaaa ou dd.mm.aaaa'
+              title='A data deve preencher o formato dd/mm/aaaa'
               required
               className={`${styles.input} ${styles["birth-field"]} ${
                 errors.birthDate && styles["invalid-input"]
