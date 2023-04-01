@@ -29,7 +29,7 @@ export function Register() {
   //Regex patterns
   const namePattern = /[A-Z][a-zA-Z]+$/;
   const datePattern =
-    /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
+    /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(([1][26]|[2468][048]|[3579][26])00))))$/g;
   const emailPattern =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
@@ -56,9 +56,7 @@ export function Register() {
               {...register("name", { required: true, pattern: namePattern })}
             />
             {errors.name && (
-              <p className={styles["input-warn"]}>
-                Insira um nome válido
-              </p>
+              <p className={styles["input-warn"]}>Insira um nome válido</p>
             )}
 
             <input
@@ -71,9 +69,7 @@ export function Register() {
               {...register("userName", { required: true })}
             />
             {errors.userName && (
-              <p className={styles["input-warn"]}>
-                Insira um nome de usuário
-              </p>
+              <p className={styles["input-warn"]}>Insira um nome de usuário</p>
             )}
 
             <input
@@ -90,9 +86,7 @@ export function Register() {
               })}
             />
             {errors.birthDate && (
-              <p className={styles["input-warn"]}>
-                Insira uma data válida
-              </p>
+              <p className={styles["input-warn"]}>Insira uma data válida</p>
             )}
 
             <input
@@ -105,9 +99,7 @@ export function Register() {
               {...register("email", { required: true, pattern: emailPattern })}
             />
             {errors.email && (
-              <p className={styles["input-warn"]}>
-                Insira um email válido
-              </p>
+              <p className={styles["input-warn"]}>Insira um email válido</p>
             )}
 
             <input
