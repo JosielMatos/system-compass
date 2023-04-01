@@ -22,8 +22,8 @@ export function Register() {
   }
 
   function onSubmit(data: formData) {
-    alert("Registered");
     console.log(data);
+    alert("Registrado!");
   }
 
   //Regex patterns
