@@ -28,6 +28,7 @@ export function Register() {
 
   //Regex patterns
   const namePattern = /[A-Z][a-zA-Z]+$/;
+  const userNamePattern = /^\S*$/;
   const datePattern =
     /^(0[1-9]|[1-2][0-8])\/(0[1-9]|1[0-2])\/(19[0-9]{2}|20[0-1][0-9]|202[0-2])$|^(29|30)\/(0[469]|11)\/(19[0-9]{2}|20[0-1][0-9]|202[0-2])$|^(29|30|31)\/(0[13578]|1[02])\/(19[0-9]{2}|20[0-1][0-9]|202[0-2])$/;
   const emailPattern =
@@ -62,14 +63,14 @@ export function Register() {
             <input
               type='text'
               placeholder='Usuário'
-              title='Nome de usuário'
+              title='Nome de usuário não pode conter espaços'
               className={`${styles.input} ${styles["user-field"]} ${
                 errors.userName && styles["invalid-input"]
               }`}
-              {...register("userName", { required: true })}
+              {...register("userName", { required: true, pattern: userNamePattern })}
             />
             {errors.userName && (
-              <p className={styles["input-warn"]}>Insira um nome de usuário</p>
+              <p className={styles["input-warn"]}>Insira um nome de usuário válido</p>
             )}
 
             <input
