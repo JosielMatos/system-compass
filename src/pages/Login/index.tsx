@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 
@@ -7,24 +6,27 @@ import styles from "./styles.module.css";
 
 export function Login() {
   const [invalidCredentials, setInvalidCredentials] = useState(false);
-  const { register, handleSubmit } = useForm<formData>();
+  const [credentials, setCredentials] = useState({
+    user: "",
+    password: "",
+  });
 
-  interface formData {
-    user: string;
-    password: string;
-  }
-
-  function onSubmit(data: formData) {
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
     const validEmail = "adm.adm@compass.com";
     const validPassword = "1Password";
 
-    if ((validEmail !== data.user) || (validPassword !== data.password)) {
+    if ((validEmail !== credentials.user) || (validPassword !== credentials.password)) {
       setInvalidCredentials(true);
       return;
     }
 
-    console.log(data);
+    console.log(credentials);
     alert("Tudo certo!");
+  }
+
+  function onChange(e: ChangeEvent<HTMLInputElement>) {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
   }
 
   return (
@@ -33,30 +35,29 @@ export function Login() {
         <div className={styles.wrapper}>
           <Header text='Para continuar navegando de forma segura, efetue o login' />
 
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className={styles["form-wrapper"]}
-          >
+          <form onSubmit={handleSubmit} className={styles["form-wrapper"]}>
             <h3 className={styles["form-label"]}>Login</h3>
 
             <input
+              name='user'
               type='text'
               placeholder='Usuário'
               className={`${styles.input} ${styles["user-field"]} ${
                 invalidCredentials && styles["invalid-credentials"]
               }`}
               required
-              {...register("user", { required: true })}
+              onChange={onChange}
             />
-            
+
             <input
+              name='password'
               type='password'
               placeholder='Senha'
               className={`${styles.input} ${styles["password-field"]} ${
                 invalidCredentials && styles["invalid-credentials"]
               }`}
+              onChange={onChange}
               required
-              {...register("password", { required: true })}
             />
 
             {invalidCredentials && (

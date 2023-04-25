@@ -1,29 +1,48 @@
-import { useForm } from "react-hook-form";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 
 import styles from "./styles.module.css";
 
 export function Register() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm<formData>();
+  const [formData, setFormData] = useState({
+    name: "",
+    userName: "",
+    birthDate: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-  interface formData {
-    name: string;
-    userName: string;
-    birthDate: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
+  const [errors, setErrors] = useState({
+    name: false,
+    userName: false,
+    birthDate: false,
+    email: false,
+    password: false,
+    confirmPassword: false,
+  });
+
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    setErrors ({
+      name: !formData.name.match(namePattern),
+      userName: !userNamePattern.test(formData["userName"]),
+      birthDate: !datePattern.test(formData["birthDate"]),
+      email: !emailPattern.test(formData["email"]),
+      password: !passwordPattern.test(formData["password"]),
+      confirmPassword: !passwordPattern.test(formData["password"]),
+    });
+
+    console.log(Object.values(errors));
+    if (Object.values(errors).includes(true)) return;
+
+    console.log(formData);
+    // alert("Registrado!");
   }
 
-  function onSubmit(data: formData) {
-    console.log(data);
-    alert("Registrado!");
+  function onChange(e: ChangeEvent<HTMLInputElement>) {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
   //Regex patterns
@@ -35,26 +54,25 @@ export function Register() {
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
+
+
   return (
     <main className={styles["main-wrapper"]}>
       <section className={styles["left-side"]}>
         <div className={styles.wrapper}>
           <Header text='Por favor, registre-se para continuar' />
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className={styles["form-wrapper"]}
-          >
+          <form onSubmit={handleSubmit} className={styles["form-wrapper"]} noValidate>
             <h3 className={styles["form-label"]}>Registro</h3>
 
             <input
+              name='name'
               type='text'
               placeholder='Nome'
-              title='Nome não pode conter números ou caracteres especiais'
+              title='Nome não pode conter números ou caracteres especiais, primeira letra maiúscula'
               required
-              className={`${styles.input} ${styles["name-field"]} ${
-                errors.name && styles["invalid-input"]
-              }`}
-              {...register("name", { required: true, pattern: namePattern })}
+              onChange={onChange}
+              className={`${styles.input} ${styles["name-field"]}
+                ${errors.name && styles["invalid-input"]}`}
             />
             {errors.name && (
               <p className={styles["input-warn"]}>Insira um nome válido</p>
@@ -62,80 +80,78 @@ export function Register() {
 
             <input
               type='text'
+              name='userName'
               placeholder='Usuário'
               title='Nome de usuário não pode conter espaços'
+              onChange={onChange}
               className={`${styles.input} ${styles["user-field"]} ${
                 errors.userName && styles["invalid-input"]
               }`}
-              {...register("userName", { required: true, pattern: userNamePattern })}
             />
             {errors.userName && (
-              <p className={styles["input-warn"]}>Insira um nome de usuário válido</p>
+              <p className={styles["input-warn"]}>
+                Insira um nome de usuário válido
+              </p>
             )}
 
             <input
+              name='birthDate'
               type='text'
               placeholder='Nascimento'
               title='A data deve preencher o formato dd/mm/aaaa'
               required
+              onChange={onChange}
               className={`${styles.input} ${styles["birth-field"]} ${
                 errors.birthDate && styles["invalid-input"]
               }`}
-              {...register("birthDate", {
-                required: true,
-                pattern: datePattern,
-              })}
             />
             {errors.birthDate && (
               <p className={styles["input-warn"]}>Insira uma data válida</p>
             )}
 
             <input
+              name='email'
               type='email'
               placeholder='Email'
               title='Insira um email válido!'
+              onChange={onChange}
               className={`${styles.input} ${styles["email-field"]} ${
                 errors.email && styles["invalid-input"]
               }`}
-              {...register("email", { required: true, pattern: emailPattern })}
             />
             {errors.email && (
               <p className={styles["input-warn"]}>Insira um email válido</p>
             )}
 
             <input
+              name='password'
               type='password'
               placeholder='Senha'
+              onChange={onChange}
               title='Mínimo de 8 caracteres, com pelo menos 1 letra maiúscula e 1 minúscula'
               className={`${styles.input} ${styles["password-field"]} ${
-                (errors.password || errors.confirmPassword) &&
+                (errors.password || !(formData.password === formData.confirmPassword)) &&
                 styles["invalid-input"]
               }`}
-              {...register("password", {
-                required: true,
-                pattern: passwordPattern,
-              })}
             />
+            {errors.password && (
+              <p className={styles["input-warn"]}>Mínimo de 8 caracteres, pelo menos <br /> 1 letra maiúscula e 1 minúscula</p>
+            )}
+
             <input
+              onChange={onChange}
+              name='confirmPassword'
               type='password'
               placeholder='Confirmar Senha'
               title='Precisa coincidir com a senha do campo anterior'
               className={`${styles.input} ${styles["confirm-password-field"]} ${
-                errors.confirmPassword && styles["invalid-input"]
+                !(formData.password === formData.confirmPassword) && styles["invalid-input"]
               }`}
-              {...register("confirmPassword", {
-                required: true,
-                validate: (value: string) => {
-                  if (watch("password") !== value) {
-                    return "As senhas não correspondem!";
-                  }
-                },
-              })}
             />
 
-            {errors.confirmPassword && (
+            {!(formData.password === formData.confirmPassword) && (
               <p className={styles["passwords-match-warn"]}>
-                {errors.confirmPassword.message}
+                As senhas não correspondem!
               </p>
             )}
 
