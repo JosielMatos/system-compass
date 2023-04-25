@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./styles.module.css";
 
@@ -11,18 +12,22 @@ export function Login() {
     password: "",
   });
 
+  const navigate = useNavigate();
+
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
     const validEmail = "adm.adm@compass.com";
     const validPassword = "1Password";
 
-    if ((validEmail !== credentials.user) || (validPassword !== credentials.password)) {
+    if (
+      validEmail !== credentials.user ||
+      validPassword !== credentials.password
+    ) {
       setInvalidCredentials(true);
       return;
     }
 
-    console.log(credentials);
-    alert("Tudo certo!");
+    navigate("/home");
   }
 
   function onChange(e: ChangeEvent<HTMLInputElement>) {

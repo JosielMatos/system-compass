@@ -25,16 +25,15 @@ export function Register() {
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    setErrors ({
+    setErrors({
       name: !formData.name.match(namePattern),
-      userName: !userNamePattern.test(formData["userName"]),
-      birthDate: !datePattern.test(formData["birthDate"]),
-      email: !emailPattern.test(formData["email"]),
-      password: !passwordPattern.test(formData["password"]),
-      confirmPassword: !passwordPattern.test(formData["password"]),
+      userName: !formData.userName.match(userNamePattern),
+      birthDate: !formData.birthDate.match(datePattern),
+      email: !formData.email.match(emailPattern),
+      password: !formData.password.match(passwordPattern),
+      confirmPassword: formData.confirmPassword !== formData.password,
     });
 
-    console.log(Object.values(errors));
     if (Object.values(errors).includes(true)) return;
 
     console.log(formData);
@@ -54,14 +53,16 @@ export function Register() {
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-
-
   return (
     <main className={styles["main-wrapper"]}>
       <section className={styles["left-side"]}>
         <div className={styles.wrapper}>
           <Header text='Por favor, registre-se para continuar' />
-          <form onSubmit={handleSubmit} className={styles["form-wrapper"]} noValidate>
+          <form
+            onSubmit={handleSubmit}
+            className={styles["form-wrapper"]}
+            noValidate
+          >
             <h3 className={styles["form-label"]}>Registro</h3>
 
             <input
@@ -130,12 +131,16 @@ export function Register() {
               onChange={onChange}
               title='Mínimo de 8 caracteres, com pelo menos 1 letra maiúscula e 1 minúscula'
               className={`${styles.input} ${styles["password-field"]} ${
-                (errors.password || !(formData.password === formData.confirmPassword)) &&
+                (errors.password ||
+                  !(formData.password === formData.confirmPassword)) &&
                 styles["invalid-input"]
               }`}
             />
             {errors.password && (
-              <p className={styles["input-warn"]}>Mínimo de 8 caracteres, pelo menos <br /> 1 letra maiúscula e 1 minúscula</p>
+              <p className={styles["input-warn"]}>
+                Mínimo de 8 caracteres, pelo menos <br /> 1 letra maiúscula e 1
+                minúscula
+              </p>
             )}
 
             <input
@@ -145,7 +150,8 @@ export function Register() {
               placeholder='Confirmar Senha'
               title='Precisa coincidir com a senha do campo anterior'
               className={`${styles.input} ${styles["confirm-password-field"]} ${
-                !(formData.password === formData.confirmPassword) && styles["invalid-input"]
+                !(formData.password === formData.confirmPassword) &&
+                styles["invalid-input"]
               }`}
             />
 
