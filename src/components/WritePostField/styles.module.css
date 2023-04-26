@@ -20,25 +20,12 @@
 }
 
 .write-field input {
-  width: 40rem;
-  height: 2.4rem;
-  background-color: #27282f;
-  border-radius: 46px;
+  width: 100%;
+  background: #27282f;
+  border-radius: 2.875rem;
   border: none;
+  padding: 0.75rem 1.75rem;
   color: var(--default-white);
-}
-
-::-webkit-input-placeholder {
-  position: absolute;
-  top: 25%;
-  left: 1.5rem;
-  font-size: 0.875rem;
-}
-:-moz-placeholder {
-  position: absolute;
-  top: 25%;
-  left: 1.5rem;
-  font-size: 0.875rem;
 }
 
 .write-field::placeholder {

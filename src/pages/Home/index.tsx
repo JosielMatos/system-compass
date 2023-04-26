@@ -5,6 +5,7 @@ import { Trends } from "../../components/Trends";
 
 import styles from "./styles.module.css";
 import homeIcon from "../../assets/home-icon.svg";
+import { Post } from "../../components/Post";
 
 export function Home() {
   return (
@@ -30,6 +31,7 @@ export function Home() {
         <div className={styles["posts-trends-wrapper"]}>
           <section className={styles["posts"]}>
             <WriteField />
+            <Post />
           </section>
 
           <section className={styles.trends}>
