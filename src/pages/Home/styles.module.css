@@ -47,3 +47,13 @@
   height: 42px;
   border-radius: 50%;
 }
+
+.posts-trends-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+}
+
+.posts {
+  margin: 0 auto;
+}

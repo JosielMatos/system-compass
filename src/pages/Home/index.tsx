@@ -1,5 +1,7 @@
 import { WriteField } from "../../components/WritePostField";
 import { Nav } from "../../components/Nav";
+import { FriendsList } from "../../components/FriendsList";
+import { Trends } from "../../components/Trends";
 
 import styles from "./styles.module.css";
 import homeIcon from "../../assets/home-icon.svg";
@@ -25,9 +27,18 @@ export function Home() {
           </div>
         </header>
 
-        <section className={styles["posts"]}>
-          <WriteField />
-        </section>
+        <div className={styles["posts-trends-wrapper"]}>
+          <section className={styles["posts"]}>
+            <WriteField />
+          </section>
+
+          <section className={styles.trends}>
+            <FriendsList />
+            <Trends />
+            <Trends />
+          </section>
+        </div>
+        
       </main>
     </div>
   );

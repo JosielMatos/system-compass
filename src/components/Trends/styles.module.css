@@ -1,0 +1,8 @@
+.wrapper {
+  min-width: 17rem;
+  min-height: 17rem;
+  border-radius: 1rem;
+  border: 2px solid #2e2f36;
+  background-color: #1e1f23;
+  margin-top: 1rem;
+}

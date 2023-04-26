@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;500;600&display=swap");
+
+.wrapper {
+  min-width: 17rem;
+  min-height: 17rem;
+  border-radius: 1rem;
+  border: 2px solid #2e2f36;
+  background-color: #1e1f23;
+}
+
+.my-friends-header {
+  display: flex;
+  padding: 1.5rem 1.25rem;
+  justify-content: space-between;
+  color: #fff;
+}
+
+.my-friends-header h2 {
+  font-family: "Inter";
+  font-size: 1rem;
+}
+
+.my-friends-list {
+  list-style: none;
+  padding: 0 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.my-friends-list li {
+  display: flex;
+  align-items: center;
+}
+
+.my-friends-list li + li {
+  margin-top: 1rem;
+}
+
+.my-friends-list img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
