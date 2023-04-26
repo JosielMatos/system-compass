@@ -1,0 +1,57 @@
+.write-field {
+  max-width: 710px;
+  background-color: #1e1f23;
+  border: 2px solid #2e2f36;
+  border-radius: 16px;
+}
+
+.write-field > div:first-child {
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.write-field > div:first-child img {
+  margin-right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+.write-field input {
+  width: 40rem;
+  height: 2.4rem;
+  background-color: #27282f;
+  border-radius: 46px;
+  border: none;
+  color: var(--default-white);
+}
+
+.write-field::placeholder {
+  color: var(--default-white);
+}
+
+.write-field div:nth-child(2) {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem 1rem 1rem;
+}
+
+.write-field ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+}
+
+.write-field ul li + li {
+  margin-left: 2rem;
+}
+
+.write-field button {
+  padding: 0.375rem 2rem;
+  color: white;
+  background: transparent;
+  border: 2px solid #27282f;
+  border-radius: 8px;
+}
