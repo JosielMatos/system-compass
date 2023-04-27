@@ -1,33 +1,67 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./styles.module.css";
+import { UserContext } from "../../contexts/userContext";
+
+type User = {
+  name: string;
+  user: string;
+  birthdate: string;
+  password: string;
+  email: string;
+  profile_photo: string;
+};
 
 export function Login() {
+  const [validCredentials, setValidCredentials] = useState<User[]>([]);
   const [invalidCredentials, setInvalidCredentials] = useState(false);
   const [credentials, setCredentials] = useState({
     user: "",
     password: "",
   });
 
+  const { userDetails, setUserDetails, setUserFriends } = useContext(UserContext);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  async function getData() {
+    await fetch("http://localhost:5000/api/v1/user")
+      .then((res) => res.json())
+      .then((users) => setValidCredentials(users.users));
+  }
+
   const navigate = useNavigate();
 
+  //Submit credentials
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    const validEmail = "adm.adm@compass.com";
-    const validPassword = "1Password";
 
-    if (
-      validEmail !== credentials.user ||
-      validPassword !== credentials.password
-    ) {
-      setInvalidCredentials(true);
-      return;
+    for (let user of validCredentials) {
+      if (
+        user.email === credentials.user &&
+        user.password === credentials.password
+      ) {
+        setUserDetails({
+          name: user.name,
+          birthdate: user.birthdate,
+          email: user.email,
+          profile_photo: "https://wallpapercave.com/wp/wp7151807.jpg",
+          user: user.user,
+        });
+        setUserFriends(validCredentials)
+
+        navigate("/home");
+
+        return;
+      }
     }
 
-    navigate("/home");
+    setInvalidCredentials(true);
   }
 
   function onChange(e: ChangeEvent<HTMLInputElement>) {

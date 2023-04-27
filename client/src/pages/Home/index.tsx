@@ -2,12 +2,24 @@ import { WriteField } from "../../components/WritePostField";
 import { Nav } from "../../components/Nav";
 import { FriendsList } from "../../components/FriendsList";
 import { Trends } from "../../components/Trends";
+import { Posts } from "../../components/Posts";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../contexts/userContext";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./styles.module.css";
 import homeIcon from "../../assets/home-icon.svg";
-import { Posts } from "../../components/Posts";
 
 export function Home() {
+  const { userDetails } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userDetails.name || !userDetails.profile_photo) {
+      navigate("/");
+    }
+  });
+
   return (
     <div className={styles.wrapper}>
       <Nav />
@@ -19,10 +31,10 @@ export function Home() {
           </div>
 
           <div className={styles["header-item"]}>
-            <p>Eduardo Pereira</p>
+            <p>{userDetails.name}</p>
             <img
               className={styles["profile-picture"]}
-              src='https://wallpapercave.com/wp/wp7151807.jpg'
+              src={userDetails.profile_photo}
               alt='Profile picture'
             />
           </div>
@@ -40,7 +52,6 @@ export function Home() {
             <Trends />
           </section>
         </div>
-        
       </main>
     </div>
   );

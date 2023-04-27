@@ -1,9 +1,10 @@
 .wrapper {
   min-width: 17rem;
-  min-height: 17rem;
+  max-height: 17rem;
   border-radius: 1rem;
   border: 2px solid #2e2f36;
   background-color: #1e1f23;
+  overflow-y: scroll;
 }
 
 .my-friends-header {
@@ -24,7 +25,7 @@
   margin-bottom: 2rem;
 }
 
-.my-friends-list li {
+.my-friends-list li a {
   display: flex;
   align-items: center;
 }
