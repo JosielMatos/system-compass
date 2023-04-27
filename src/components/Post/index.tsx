@@ -3,6 +3,11 @@ import clock from "../../assets/home-icons/clock-post-info.svg";
 import likeIcon from "../../assets/home-icons/like-icon.svg";
 import commentIcon from "../../assets/home-icons/comment-icon.svg";
 import shareIcon from "../../assets/home-icons/share-icon.svg";
+import cameraIcon from "../../assets/home-icons/camera-icon.svg";
+import landscapeIcon from "../../assets/home-icons/landscape-icon.svg";
+import clipIcon from "../../assets/home-icons/clip-icon.svg";
+import mapIcon from "../../assets/home-icons/map-icon.svg";
+import emojiIcon from "../../assets/home-icons/emoji-icon.svg";
 
 export function Post() {
   return (
@@ -55,7 +60,36 @@ export function Post() {
           src='https://wallpapercave.com/wp/wp7151807.jpg'
           alt='Foto'
         />
+        <div className={styles["input-comment-container"]}>
         <input type='text' placeholder="O que você está pensando?" />
+        <ul className={styles["comment-icons"]}>
+        <li>
+            <a href='#'>
+              <img src={cameraIcon} alt='Adicionar foto com a câmera' />
+            </a>
+          </li>
+          <li>
+            <a href='#'>
+              <img src={landscapeIcon} alt='Adicionar imagem' />
+            </a>
+          </li>
+          <li>
+            <a href='#'>
+              <img src={clipIcon} alt='Adicionar Arquivo' />
+            </a>
+          </li>
+          <li>
+            <a href='#'>
+              <img src={mapIcon} alt='Adicionar localização' />
+            </a>
+          </li>
+          <li>
+            <a href='#'>
+              <img src={emojiIcon} alt='Adicionar emoji' />
+            </a>
+          </li>
+        </ul>
+        </div>
       </section>
 
       <p className={styles["all-comments-header"]}>Todos os comentários</p>

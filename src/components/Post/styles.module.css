@@ -98,6 +98,27 @@
   margin-top: 1rem;
 }
 
+.comment .input-comment-container {
+  width: 100%;
+  position: relative;
+}
+
+.input-comment-container .comment-icons {
+  list-style: none;
+  position: absolute;
+  display: flex;
+  right: 10px;
+  top: 25%;
+}
+
+.input-comment-container .comment-icons li + li {
+  margin-left: 1rem;
+}
+
+.input-comment-container .comment-icons img {
+  width: 1.25rem;
+}
+
 .comment input {
   width: 100%;
   background: #27282f;
