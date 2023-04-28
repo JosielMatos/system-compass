@@ -23,21 +23,28 @@ export function Register() {
     confirmPassword: false,
   });
 
-  function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-    setErrors({
+  function checkInvalidInput() {
+    const data = {
       name: !formData.name.match(namePattern),
       userName: !formData.userName.match(userNamePattern),
       birthDate: !formData.birthDate.match(datePattern),
       email: !formData.email.match(emailPattern),
       password: !formData.password.match(passwordPattern),
       confirmPassword: formData.confirmPassword !== formData.password,
-    });
+    };
+    setErrors(data);
 
-    if (Object.values(errors).includes(true)) return;
+    return Object.values(data).some((error) => error);
+  }
 
-    console.log(formData);
-    // alert("Registrado!");
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+
+    const hasError = checkInvalidInput();
+
+    if (hasError) return;
+
+    alert("Registrado!");
   }
 
   function onChange(e: ChangeEvent<HTMLInputElement>) {
