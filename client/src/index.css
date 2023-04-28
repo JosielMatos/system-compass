@@ -50,3 +50,9 @@ button {
 input::placeholder {
   font-family: 'Poppins';
 }
+
+@media (max-width: 824px) {
+  html {
+    font-size: 0.75rem;
+  }
+}

@@ -1,7 +1,7 @@
 .wrapper {
   display: flex;
   width: 100%;
-  background-color: #17181C;
+  background-color: #17181c;
 }
 
 .main {
@@ -56,5 +56,22 @@
 }
 
 .posts {
-  margin: 0 auto;
+  width: 100%;
+  margin-right: 1rem;
+}
+
+@media (max-width: 1056px) {
+  .trends {
+    display: none;
+  }
+
+  .posts {
+    margin: 0;
+  }
+}
+
+@media (max-width: 824px) {
+  .wrapper > nav {
+    display: none;
+  }
 }

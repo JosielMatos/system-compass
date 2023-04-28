@@ -1,5 +1,7 @@
 .write-field {
-  max-width: 710px;
+  min-width: 44.375rem;
+  max-width: 75rem;
+  margin: 0 auto;
   background-color: #1e1f23;
   border: 2px solid #2e2f36;
   border-radius: 16px;
@@ -54,4 +56,11 @@
   background: transparent;
   border: 2px solid #27282f;
   border-radius: 8px;
+}
+
+@media (max-width: 1300px) {
+  .write-field {
+    min-width: 100%;
+    max-width: 100%;
+  }
 }

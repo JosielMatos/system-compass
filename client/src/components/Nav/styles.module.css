@@ -1,5 +1,6 @@
 .nav {
   width: 21.875rem;
+  min-height: 62rem;
   height: 100vh;
   display: flex;
   justify-content: center;
