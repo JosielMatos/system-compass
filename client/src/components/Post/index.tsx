@@ -14,7 +14,7 @@ interface PostProps {
   post_date: string;
   description: string;
   likes: number;
-  comments: Comments[];
+  comments?: Comments[];
 }
 
 interface Comments {
@@ -62,7 +62,7 @@ export function Post({
         <a href='#' className={styles["comment-button"]}>
           <img src={commentIcon} alt='Adicionar comentário' />
           <p>Comentários</p>{" "}
-          {comments ? <span>{comments.length}</span> : (<span>0</span>)}
+          {comments ? <span>{comments.length}</span> : <span>0</span>}
         </a>
         <a href='#' className={styles.share}>
           <img src={shareIcon} alt='Compartilhar' />

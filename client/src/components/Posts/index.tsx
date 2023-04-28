@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Post } from "../Post";
 import styles from "./styles.module.css";
 
@@ -7,7 +6,7 @@ interface PostProps {
   post_date: string;
   description: string;
   likes: number;
-  comments: Comments[];
+  comments?: Comments[];
 }
 
 interface Comments {
@@ -15,19 +14,11 @@ interface Comments {
   comment: string;
 }
 
-export function Posts() {
-  const [posts, setPosts] = useState<PostProps[]>([]);
+interface Posts {
+  posts: PostProps[]
+}
 
-  useEffect(() => {
-    getData();
-  }, []);
-
-  async function getData() {
-    await fetch("http://localhost:5000/api/v1/user/post")
-      .then((res) => res.json())
-      .then((posts) => setPosts(posts.posts));
-  }
-
+export function Posts({posts}: Posts) {
   return (
     <div className={styles["posts-list"]}>
       {!posts.length ? (

@@ -2,9 +2,9 @@ import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../contexts/userContext";
 
 import styles from "./styles.module.css";
-import { UserContext } from "../../contexts/userContext";
 
 type User = {
   name: string;
@@ -23,7 +23,7 @@ export function Login() {
     password: "",
   });
 
-  const { userDetails, setUserDetails, setUserFriends } = useContext(UserContext);
+  const { setUserDetails, setUserFriends } = useContext(UserContext);
 
   useEffect(() => {
     getData();
@@ -53,7 +53,7 @@ export function Login() {
           profile_photo: "https://wallpapercave.com/wp/wp7151807.jpg",
           user: user.user,
         });
-        setUserFriends(validCredentials)
+        setUserFriends(validCredentials);
 
         navigate("/home");
 
@@ -84,8 +84,8 @@ export function Login() {
               className={`${styles.input} ${styles["user-field"]} ${
                 invalidCredentials && styles["invalid-credentials"]
               }`}
-              required
               onChange={onChange}
+              required
             />
 
             <input

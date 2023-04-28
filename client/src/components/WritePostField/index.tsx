@@ -1,14 +1,20 @@
-import styles from './styles.module.css';
+import styles from "./styles.module.css";
 
 import cameraIcon from "../../assets/home-icons/camera-icon.svg";
 import landscapeIcon from "../../assets/home-icons/landscape-icon.svg";
 import clipIcon from "../../assets/home-icons/clip-icon.svg";
 import mapIcon from "../../assets/home-icons/map-icon.svg";
 import emojiIcon from "../../assets/home-icons/emoji-icon.svg";
+import { FormEvent } from "react";
 
-export function WriteField() {
+interface WriteFieldProps {
+  setPost: (state: string) => void;
+  onSubmit: (e: FormEvent) => void;
+}
+
+export function WriteField({ setPost, onSubmit }: WriteFieldProps) {
   return (
-    <section className={styles["write-field"]}>
+    <form onSubmit={onSubmit} className={styles["write-field"]}>
       <div>
         <img
           className={styles["profile-picture"]}
@@ -20,6 +26,7 @@ export function WriteField() {
           name='post'
           id='user-post'
           placeholder='No que você está pensando?'
+          onChange={(e) => setPost(e.target.value)}
         />
       </div>
       <div>
@@ -52,6 +59,6 @@ export function WriteField() {
         </ul>
         <button type='submit'>Postar</button>
       </div>
-    </section>
+    </form>
   );
 }
