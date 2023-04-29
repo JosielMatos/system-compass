@@ -16,6 +16,7 @@ interface PostProps {
   description: string;
   likes: number;
   comments?: Comments[];
+  url_imagem: string;
 }
 
 interface Comments {
@@ -53,6 +54,7 @@ export function Home() {
       post_date: new Date().toString(),
       description: post,
       likes: 1,
+      url_imagem: "https://picsum.photos/200/300",
     };
 
     setPosts((prevValues) => [newPost, ...prevValues]);
@@ -80,7 +82,11 @@ export function Home() {
 
         <div className={styles["posts-trends-wrapper"]}>
           <section className={styles["posts"]}>
-            <WriteField setPost={setPost} onSubmit={onPost} />
+            <WriteField
+              setPost={setPost}
+              onSubmit={onPost}
+              profile_photo={userDetails.profile_photo}
+            />
             <Posts posts={posts} />
           </section>
 

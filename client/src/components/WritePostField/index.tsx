@@ -10,15 +10,16 @@ import { FormEvent } from "react";
 interface WriteFieldProps {
   setPost: (state: string) => void;
   onSubmit: (e: FormEvent) => void;
+  profile_photo: string;
 }
 
-export function WriteField({ setPost, onSubmit }: WriteFieldProps) {
+export function WriteField({ setPost, onSubmit, profile_photo }: WriteFieldProps) {
   return (
     <form onSubmit={onSubmit} className={styles["write-field"]}>
       <div>
         <img
           className={styles["profile-picture"]}
-          src='https://wallpapercave.com/wp/wp7151807.jpg'
+          src={profile_photo}
           alt='Profile picture'
         />
         <input

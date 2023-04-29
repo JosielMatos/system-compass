@@ -18,7 +18,7 @@ export function FriendsList() {
           return (
             <li key={index}>
               <a href='#'>
-                <img src='https://picsum.photos/200' alt='Foto' />
+                <img src={`https://picsum.photos/200?random=${index + 1}`} alt='Foto' />
                 <p>{friend.name}</p>
               </a>
             </li>

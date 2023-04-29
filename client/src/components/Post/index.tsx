@@ -15,6 +15,7 @@ interface PostProps {
   description: string;
   likes: number;
   comments?: Comments[];
+  url_imagem: string,
 }
 
 interface Comments {
@@ -28,6 +29,7 @@ export function Post({
   description,
   likes,
   comments,
+  url_imagem,
 }: PostProps) {
   return (
     <article className={styles.wrapper}>
@@ -35,7 +37,7 @@ export function Post({
         <div className={styles["post-user-info"]}>
           <img
             className={styles["profile-picture"]}
-            src='https://wallpapercave.com/wp/wp7151807.jpg'
+            src="https://picsum.photos/200?random=1"
             alt='Foto'
           />
           <div className={styles["post-info"]}>
@@ -73,7 +75,7 @@ export function Post({
       <section className={styles.comment}>
         <img
           className={styles["profile-picture"]}
-          src='https://wallpapercave.com/wp/wp7151807.jpg'
+          src='https://picsum.photos/200?random=1'
           alt='Foto'
         />
         <div className={styles["input-comment-container"]}>
@@ -114,7 +116,7 @@ export function Post({
         <section className={styles["first-comment"]}>
           <img
             className={styles["profile-picture"]}
-            src='https://wallpapercave.com/wp/wp7151807.jpg'
+            src='https://picsum.photos/200?random=2'
             alt='foto'
           />
           <p>

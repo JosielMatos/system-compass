@@ -7,6 +7,7 @@ interface PostProps {
   description: string;
   likes: number;
   comments?: Comments[];
+  url_imagem: string;
 }
 
 interface Comments {
@@ -15,10 +16,10 @@ interface Comments {
 }
 
 interface Posts {
-  posts: PostProps[]
+  posts: PostProps[];
 }
 
-export function Posts({posts}: Posts) {
+export function Posts({ posts }: Posts) {
   return (
     <div className={styles["posts-list"]}>
       {!posts.length ? (
@@ -33,6 +34,7 @@ export function Posts({posts}: Posts) {
               description={post.description}
               likes={post.likes}
               comments={post.comments}
+              url_imagem={post.url_imagem}
             />
           );
         })

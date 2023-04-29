@@ -18,6 +18,7 @@ type User = {
 export function Login() {
   const [validCredentials, setValidCredentials] = useState<User[]>([]);
   const [invalidCredentials, setInvalidCredentials] = useState(false);
+  const [emptyCredentials, setEmptyCredentials] = useState(false);
   const [credentials, setCredentials] = useState({
     user: "",
     password: "",
@@ -41,6 +42,12 @@ export function Login() {
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
+    //Check empty form
+    const emptyForm = !credentials.user || !credentials.password;
+    setEmptyCredentials(emptyForm);
+    if (emptyForm) return;
+
+    //Check user database
     for (let user of validCredentials) {
       if (
         user.email === credentials.user &&
@@ -50,7 +57,7 @@ export function Login() {
           name: user.name,
           birthdate: user.birthdate,
           email: user.email,
-          profile_photo: "https://wallpapercave.com/wp/wp7151807.jpg",
+          profile_photo: "https://picsum.photos/200/300",
           user: user.user,
         });
         setUserFriends(validCredentials);
@@ -85,7 +92,6 @@ export function Login() {
                 invalidCredentials && styles["invalid-credentials"]
               }`}
               onChange={onChange}
-              required
             />
 
             <input
@@ -96,13 +102,18 @@ export function Login() {
                 invalidCredentials && styles["invalid-credentials"]
               }`}
               onChange={onChange}
-              required
             />
 
             {invalidCredentials && (
               <p className={styles["invalid-credentials-warn"]}>
                 Usuário e/ou Senha inválidos.
                 <br /> Por favor, tente novamente!
+              </p>
+            )}
+
+            {emptyCredentials && (
+              <p className={styles["invalid-credentials-warn"]}>
+                Insira Usuário e Senha válidos!
               </p>
             )}
 
