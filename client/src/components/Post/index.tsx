@@ -16,6 +16,7 @@ interface PostProps {
   likes: number;
   comments?: Comments[];
   url_imagem: string,
+  current_user_photo: string,
 }
 
 interface Comments {
@@ -30,6 +31,7 @@ export function Post({
   likes,
   comments,
   url_imagem,
+  current_user_photo,
 }: PostProps) {
   return (
     <article className={styles.wrapper}>
@@ -75,7 +77,7 @@ export function Post({
       <section className={styles.comment}>
         <img
           className={styles["profile-picture"]}
-          src='https://picsum.photos/200?random=1'
+          src={current_user_photo}
           alt='Foto'
         />
         <div className={styles["input-comment-container"]}>

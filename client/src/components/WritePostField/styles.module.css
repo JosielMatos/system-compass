@@ -56,6 +56,13 @@
   background: transparent;
   border: 2px solid #27282f;
   border-radius: 8px;
+  transition: 0.2s;
+}
+
+.write-field button:hover {
+  cursor: pointer;
+  background: var(--default-white);
+  color: initial;
 }
 
 @media (max-width: 1300px) {

@@ -87,7 +87,7 @@ export function Home() {
               onSubmit={onPost}
               profile_photo={userDetails.profile_photo}
             />
-            <Posts posts={posts} />
+            <Posts posts={posts} current_user_photo={userDetails.profile_photo} />
           </section>
 
           <section className={styles.trends}>

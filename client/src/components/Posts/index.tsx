@@ -17,9 +17,10 @@ interface Comments {
 
 interface Posts {
   posts: PostProps[];
+  current_user_photo: string,
 }
 
-export function Posts({ posts }: Posts) {
+export function Posts({ posts, current_user_photo }: Posts) {
   return (
     <div className={styles["posts-list"]}>
       {!posts.length ? (
@@ -35,6 +36,7 @@ export function Posts({ posts }: Posts) {
               likes={post.likes}
               comments={post.comments}
               url_imagem={post.url_imagem}
+              current_user_photo={current_user_photo}
             />
           );
         })
