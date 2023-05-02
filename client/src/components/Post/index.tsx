@@ -8,6 +8,8 @@ import landscapeIcon from "../../assets/home-icons/landscape-icon.svg";
 import clipIcon from "../../assets/home-icons/clip-icon.svg";
 import mapIcon from "../../assets/home-icons/map-icon.svg";
 import emojiIcon from "../../assets/home-icons/emoji-icon.svg";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/userContext";
 
 interface PostProps {
   user: string;
@@ -15,8 +17,8 @@ interface PostProps {
   description: string;
   likes: number;
   comments?: Comments[];
-  url_imagem: string,
-  current_user_photo: string,
+  url_imagem: string;
+  current_user_photo: string;
 }
 
 interface Comments {
@@ -33,17 +35,19 @@ export function Post({
   url_imagem,
   current_user_photo,
 }: PostProps) {
+  const { getUserName } = useContext(UserContext);
+
   return (
     <article className={styles.wrapper}>
       <header>
         <div className={styles["post-user-info"]}>
           <img
             className={styles["profile-picture"]}
-            src="https://picsum.photos/200?random=1"
+            src='https://picsum.photos/200?random=1'
             alt='Foto'
           />
           <div className={styles["post-info"]}>
-            <p>{user}</p>
+            <p>{getUserName(user)}</p>
             <p>
               <img src={clock} alt='relógio' />
               60 minutos atrás em <strong>Paisagens Exuberantes</strong>
@@ -122,7 +126,7 @@ export function Post({
             alt='foto'
           />
           <p>
-            <strong>{comments[0].user}:</strong> {comments[0].comment}
+            <strong>{getUserName(comments[0].user)}:</strong> {comments[0].comment}
           </p>
         </section>
       )}

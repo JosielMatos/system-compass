@@ -24,7 +24,7 @@ export function Login() {
     password: "",
   });
 
-  const { setUserDetails, setUserFriends } = useContext(UserContext);
+  const { setUserDetails, setUserList } = useContext(UserContext);
 
   useEffect(() => {
     getData();
@@ -60,7 +60,7 @@ export function Login() {
           profile_photo: "https://picsum.photos/200/300",
           user: user.user,
         });
-        setUserFriends(validCredentials);
+        setUserList(validCredentials);
 
         navigate("/home");
 

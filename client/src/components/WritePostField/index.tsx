@@ -8,12 +8,13 @@ import emojiIcon from "../../assets/home-icons/emoji-icon.svg";
 import { FormEvent } from "react";
 
 interface WriteFieldProps {
+  post: string;
   setPost: (state: string) => void;
   onSubmit: (e: FormEvent) => void;
   profile_photo: string;
 }
 
-export function WriteField({ setPost, onSubmit, profile_photo }: WriteFieldProps) {
+export function WriteField({ post, setPost, onSubmit, profile_photo }: WriteFieldProps) {
   return (
     <form onSubmit={onSubmit} className={styles["write-field"]}>
       <div>
@@ -28,6 +29,7 @@ export function WriteField({ setPost, onSubmit, profile_photo }: WriteFieldProps
           id='user-post'
           placeholder='No que você está pensando?'
           onChange={(e) => setPost(e.target.value)}
+          value={post}
         />
       </div>
       <div>

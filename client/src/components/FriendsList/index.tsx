@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { UserContext } from "../../contexts/userContext";
 
 export function FriendsList() {
-  const { userFriends } = useContext(UserContext);
+  const { userList } = useContext(UserContext);
 
   return (
     <section className={styles.wrapper}>
@@ -14,7 +14,7 @@ export function FriendsList() {
       </div>
 
       <ul className={styles["my-friends-list"]}>
-        {userFriends.map((friend, index) => {
+        {userList.map((friend, index) => {
           return (
             <li key={index}>
               <a href='#'>

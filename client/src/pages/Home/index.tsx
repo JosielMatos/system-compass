@@ -58,6 +58,7 @@ export function Home() {
     };
 
     setPosts((prevValues) => [newPost, ...prevValues]);
+    setPost("");
   }
 
   return (
@@ -65,24 +66,25 @@ export function Home() {
       <Nav />
       <main className={styles.main}>
         <header className={styles.header}>
-          <div className={styles["header-item"]}>
+          <a href="#" className={styles["header-item"]}>
             <img src={homeIcon} alt='Home' />
             <h2>Home</h2>
-          </div>
+          </a>
 
-          <div className={styles["header-item"]}>
+          <a href="#" className={styles["header-item"]}>
             <p>{userDetails.name}</p>
             <img
               className={styles["profile-picture"]}
               src={userDetails.profile_photo}
               alt='Profile picture'
             />
-          </div>
+          </a>
         </header>
 
         <div className={styles["posts-trends-wrapper"]}>
           <section className={styles["posts"]}>
             <WriteField
+              post={post}
               setPost={setPost}
               onSubmit={onPost}
               profile_photo={userDetails.profile_photo}

@@ -3,8 +3,9 @@ import { ReactNode, createContext, useState } from "react";
 type UserContextData = {
   userDetails: User;
   setUserDetails: (state: User) => void;
-  userFriends: User[];
-  setUserFriends: (state: User[]) => void;
+  userList: User[];
+  setUserList: (state: User[]) => void;
+  getUserName: (user: string) => string | undefined;
 };
 
 export const UserContext = createContext({} as UserContextData);
@@ -23,11 +24,19 @@ type User = {
 
 export function UserContextProvider({ children }: UserProviderProps) {
   const [userDetails, setUserDetails] = useState({} as User);
-  const [userFriends, setUserFriends] = useState([] as User[]);
+  const [userList, setUserList] = useState([] as User[]);
+
+  function getUserName(user: string) {
+    for (let userDetails in userList) {
+      if (userList[userDetails].user === user) {
+        return userList[userDetails].name;
+      }
+    }
+  }
 
   return (
     <UserContext.Provider
-      value={{ userDetails, setUserDetails, setUserFriends, userFriends }}
+      value={{ userDetails, setUserDetails, setUserList, userList, getUserName }}
     >
       {children}
     </UserContext.Provider>
