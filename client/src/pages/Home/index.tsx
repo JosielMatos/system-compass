@@ -43,7 +43,8 @@ export function Home() {
   async function getData() {
     await fetch("http://localhost:5000/api/v1/user/post")
       .then((res) => res.json())
-      .then((posts) => setPosts(posts.posts));
+      .then((posts) => setPosts(posts.posts))
+      .catch((error) => console.log(error));
   }
 
   function onPost(e: FormEvent) {
@@ -66,12 +67,12 @@ export function Home() {
       <Nav />
       <main className={styles.main}>
         <header className={styles.header}>
-          <a href="#" className={styles["header-item"]}>
+          <a href='#' className={styles["header-item"]}>
             <img src={homeIcon} alt='Home' />
             <h2>Home</h2>
           </a>
 
-          <a href="#" className={styles["header-item"]}>
+          <a href='#' className={styles["header-item"]}>
             <p>{userDetails.name}</p>
             <img
               className={styles["profile-picture"]}
@@ -89,7 +90,10 @@ export function Home() {
               onSubmit={onPost}
               profile_photo={userDetails.profile_photo}
             />
-            <Posts posts={posts} current_user_photo={userDetails.profile_photo} />
+            <Posts
+              posts={posts}
+              current_user_photo={userDetails.profile_photo}
+            />
           </section>
 
           <section className={styles.trends}>

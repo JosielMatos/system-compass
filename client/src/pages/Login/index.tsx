@@ -33,7 +33,8 @@ export function Login() {
   async function getData() {
     await fetch("http://localhost:5000/api/v1/user")
       .then((res) => res.json())
-      .then((users) => setValidCredentials(users.users));
+      .then((users) => setValidCredentials(users.users))
+      .catch((error) => console.log(error));
   }
 
   const navigate = useNavigate();
