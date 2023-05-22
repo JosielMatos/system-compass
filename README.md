@@ -1,6 +1,14 @@
 # System Compass
 
-A wonderful system made with the latest and greatest technology available.
+A wonderful Full Stack web App made with the latest and greatest technology available.
+Users are able to login and share their thoughts with everyone.
+
+## Tech Stack
+
+- TypeScript
+- React
+- NodeJS
+- Express
 
 ## Screenshots
 
@@ -11,13 +19,24 @@ A wonderful system made with the latest and greatest technology available.
 
 
 ## How to run locally
-After cloning this repo, make sure you have the latest Node.js LTS installed in your system. Next, install the dependencies with the following command in your terminal:
+
+After cloning this repo, make sure you have the latest Node.js LTS installed in your system. Next, open 2 tabs in your terminal, so that you can run both client and server.
+
+```
+cd system-compass/server
+```
+
+```
+cd system-compass/client
+```
+
+For each folder, install the dependencies with the following command in your terminal:
 
 ```
 npm install
 ```
 
-Now you can run the project:
+Now you can run the project. On both client and server, run:
 
 ```
 npm run dev

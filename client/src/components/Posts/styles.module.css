@@ -1,0 +1,28 @@
+.posts-list {
+  min-width: 44.375rem;
+  max-width: 75rem;
+  margin: 1rem auto 0 auto;
+  max-height: 46.5rem;
+  overflow-y: scroll;
+}
+
+.posts-list::-webkit-scrollbar {
+  display: none;
+}
+
+.posts-list > * + * {
+  margin-top: 1rem;
+}
+
+@media (max-width: 1300px) {
+  .posts-list {
+    min-width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 824px) {
+  .posts-list {
+    max-height: 71vh;
+  }
+}

@@ -1,0 +1,73 @@
+.write-field {
+  min-width: 44.375rem;
+  max-width: 75rem;
+  margin: 0 auto;
+  background-color: #1e1f23;
+  border: 2px solid #2e2f36;
+  border-radius: 16px;
+}
+
+.write-field > div:first-child {
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.write-field > div:first-child img {
+  margin-right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+.write-field input {
+  width: 100%;
+  background: #27282f;
+  border-radius: 2.875rem;
+  border: none;
+  padding: 0.75rem 1.75rem;
+  color: var(--default-white);
+}
+
+.write-field::placeholder {
+  color: var(--default-white);
+}
+
+.write-field div:nth-child(2) {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem 1rem 1rem;
+}
+
+.write-field ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+}
+
+.write-field ul li + li {
+  margin-left: 2rem;
+}
+
+.write-field button {
+  padding: 0.375rem 2rem;
+  color: white;
+  background: transparent;
+  border: 2px solid #27282f;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.write-field button:hover {
+  cursor: pointer;
+  background: var(--default-white);
+  color: initial;
+}
+
+@media (max-width: 1300px) {
+  .write-field {
+    min-width: 100%;
+    max-width: 100%;
+  }
+}

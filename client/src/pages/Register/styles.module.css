@@ -20,11 +20,11 @@
 
 .form-wrapper {
   margin-top: 6rem;
+  width: 100%;
 }
 
 .wrapper {
-  max-width: 25.375rem;
-  margin: auto 0;
+  width: 25.375rem;
 }
 
 .form-label {
