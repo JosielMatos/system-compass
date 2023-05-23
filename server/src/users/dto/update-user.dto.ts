@@ -8,10 +8,13 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   user: string;
 
   @IsNotEmpty()
-  birthdate: string;
+  birthDate: string;
 
   @IsNotEmpty()
-  username: string;
+  userName: string;
   
+  @IsNotEmpty()
+  name: string;
+
   profile_photo?: string;
 }

@@ -1,45 +1,43 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
-import { InjectRepository } from '@nestjs/typeorm';
+import { User, UserDocument } from './entities/user.entity';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User)
-    private readonly usersRepository: Repository<User>,
+    @InjectModel(User.name)
+    private UserModel: Model<UserDocument>,
   ) {}
 
-  async create(data: CreateUserDto) {
-    const user = this.usersRepository.create(data);
-    return await this.usersRepository.save(user);
+  create(data: CreateUserDto) {
+    const user = new this.UserModel(data);
+    return user.save();
   }
 
-  async findAll() {
-    return await this.usersRepository.find({
-      select: ['id', 'user', 'name', 'user_name', 'profile_photo'],
-    });
+  findAll() {
+    return this.UserModel.find().select('-password');
   }
 
-  async findOne(id: string) {
+  findOne(id: string) {
     try {
-      return this.usersRepository.findOne({ where: { id } });
+      return this.UserModel.findById(id).select('-password');
     } catch (error) {
       throw new NotFoundException(error.message);
     }
   }
 
-  async update(id: string, data: UpdateUserDto) {
-    const user = await this.findOne(id);
-    this.usersRepository.merge(user, data);
-    return await this.usersRepository.save(user);
+  update(id: string, data: UpdateUserDto) {
+    return this.UserModel.findByIdAndUpdate(
+      { _id: id },
+      { $set: data },
+      { new: true },
+    ).select('-password');
   }
 
-  async remove(id: string) {
-    await this.usersRepository.findOneByOrFail({ id });
-
-    this.usersRepository.delete(id);
+  remove(id: string) {
+    return this.UserModel.deleteOne({ _id: id }).exec();
   }
 }

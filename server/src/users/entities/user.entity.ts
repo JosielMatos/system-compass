@@ -1,23 +1,27 @@
-import { IsEmail } from 'class-validator';
-import { Column, ObjectIdColumn } from 'typeorm';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { HydratedDocument } from 'mongoose';
 
+export type UserDocument = HydratedDocument<User>;
+
+@Schema()
 export class User {
-  @ObjectIdColumn()
-  id: string;
-
-  @Column()
+  @Prop()
   name: string;
 
-  @Column()
-  user_name: string;
+  @Prop()
+  userName: string;
 
-  @Column()
-  @IsEmail()
+  @Prop()
   user: string;
 
-  @Column()
+  @Prop()
+  birthDate: string;
+
+  @Prop()
   password: string;
 
-  @Column({ default: 'http://example.com' })
+  @Prop()
   profile_photo: string;
 }
+
+export const UserSchema = SchemaFactory.createForClass(User);

@@ -9,13 +9,14 @@ export class CreateUserDto {
   user: string;
 
   @IsNotEmpty()
-  birthdate: string;
+  birthDate: string;
 
   @IsNotEmpty()
-  username: string;
+  userName: string;
   
   @IsNotEmpty()
   password: string;
 
+  @IsNotEmpty()
   profile_photo: string;
 }
