@@ -17,27 +17,35 @@ export class UsersService {
     return user.save();
   }
 
-  findAll() {
-    return this.UserModel.find().select('-password');
+  async findAll() {
+    return await this.UserModel.find().select('-password');
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
     try {
-      return this.UserModel.findById(id).select('-password');
+      return await this.UserModel.findById(id).select('-password');
     } catch (error) {
-      throw new NotFoundException(error.message);
+      throw new NotFoundException();
     }
   }
 
-  update(id: string, data: UpdateUserDto) {
-    return this.UserModel.findByIdAndUpdate(
-      { _id: id },
-      { $set: data },
-      { new: true },
-    ).select('-password');
+  async update(id: string, data: UpdateUserDto) {
+    try {
+      return await this.UserModel.findByIdAndUpdate(
+        { _id: id },
+        { $set: data },
+        { new: true },
+      ).select('-password');
+    } catch (error) {
+      throw new NotFoundException();
+    }
   }
 
-  remove(id: string) {
-    return this.UserModel.deleteOne({ _id: id }).exec();
+  async remove(id: string) {
+    try {
+      return await this.UserModel.deleteOne({ _id: id }).exec();
+    } catch (error) {
+      throw new NotFoundException();
+    }
   }
 }
