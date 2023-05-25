@@ -29,6 +29,10 @@ export class UsersService {
     }
   }
 
+  async findMatch(user: string) {
+    return await this.UserModel.findOne({ user: user });
+  }
+
   async update(id: string, data: UpdateUserDto) {
     try {
       return await this.UserModel.findByIdAndUpdate(
