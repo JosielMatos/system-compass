@@ -11,18 +11,18 @@ export class User {
   name: string;
 
   @Prop({ required: true })
-  userName: string;
+  username: string;
 
   @Prop({ required: true })
-  user: string;
+  email: string;
 
   @Prop({ required: true })
-  birthDate: string;
+  birthdate: string;
 
   @Prop({ required: true })
   password: string;
 
-  @Prop({ default: 'http://superexample.com' })
+  @Prop({ default: 'https://picsum.photos/200/300' })
   profile_photo: string;
 
   @Prop({ type: SchemaTypes.ObjectId, ref: 'Post' })

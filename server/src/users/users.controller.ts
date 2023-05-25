@@ -7,12 +7,10 @@ import {
   Param,
   Delete,
   HttpCode,
-  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { AuthGuard } from '@nestjs/passport';
 
 @Controller('api/v1/users')
 export class UsersController {
@@ -38,7 +36,6 @@ export class UsersController {
     return await this.usersService.update(id, body);
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   @HttpCode(204)
   async remove(@Param('id') id: string) {

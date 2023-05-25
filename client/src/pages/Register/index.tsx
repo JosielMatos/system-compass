@@ -3,15 +3,19 @@ import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 
 import styles from "./styles.module.css";
+import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 export function Register() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
-    userName: "",
-    birthDate: "",
+    username: "",
+    birthdate: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    confirmpassword: "",
   });
 
   const [errors, setErrors] = useState({
@@ -20,31 +24,40 @@ export function Register() {
     birthDate: false,
     email: false,
     password: false,
-    confirmPassword: false,
+    confirmpassword: false,
   });
 
   function checkInvalidInput() {
     const data = {
       name: !formData.name.match(namePattern),
-      userName: !formData.userName.match(userNamePattern),
-      birthDate: !formData.birthDate.match(datePattern),
+      userName: !formData.username.match(userNamePattern),
+      birthDate: !formData.birthdate.match(datePattern),
       email: !formData.email.match(emailPattern),
       password: !formData.password.match(passwordPattern),
-      confirmPassword: formData.confirmPassword !== formData.password,
+      confirmpassword: formData.confirmpassword !== formData.password,
     };
     setErrors(data);
 
     return Object.values(data).some((error) => error);
   }
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
     const hasError = checkInvalidInput();
 
     if (hasError) return;
 
-    alert("Registrado!");
+    const {confirmpassword, ...formattedData} = formData;
+
+    const serverResponse = await api.post('/api/v1/users', formattedData).then((response) => response.status);
+
+    if (serverResponse === 201) {
+      alert("Registrado!");
+      navigate('/');
+    } else {
+      alert('Something went wrong!')
+    }
   }
 
   function onChange(e: ChangeEvent<HTMLInputElement>) {
@@ -88,7 +101,7 @@ export function Register() {
 
             <input
               type='text'
-              name='userName'
+              name='username'
               placeholder='Usuário'
               title='Nome de usuário não pode conter espaços'
               onChange={onChange}
@@ -103,7 +116,7 @@ export function Register() {
             )}
 
             <input
-              name='birthDate'
+              name='birthdate'
               type='text'
               placeholder='Nascimento'
               title='A data deve preencher o formato dd/mm/aaaa'
@@ -139,7 +152,7 @@ export function Register() {
               title='Mínimo de 8 caracteres, com pelo menos 1 letra maiúscula e 1 minúscula'
               className={`${styles.input} ${styles["password-field"]} ${
                 (errors.password ||
-                  !(formData.password === formData.confirmPassword)) &&
+                  !(formData.password === formData.confirmpassword)) &&
                 styles["invalid-input"]
               }`}
             />
@@ -152,17 +165,17 @@ export function Register() {
 
             <input
               onChange={onChange}
-              name='confirmPassword'
+              name='confirmpassword'
               type='password'
               placeholder='Confirmar Senha'
               title='Precisa coincidir com a senha do campo anterior'
               className={`${styles.input} ${styles["confirm-password-field"]} ${
-                !(formData.password === formData.confirmPassword) &&
+                !(formData.password === formData.confirmpassword) &&
                 styles["invalid-input"]
               }`}
             />
 
-            {!(formData.password === formData.confirmPassword) && (
+            {!(formData.password === formData.confirmpassword) && (
               <p className={styles["passwords-match-warn"]}>
                 As senhas não correspondem!
               </p>

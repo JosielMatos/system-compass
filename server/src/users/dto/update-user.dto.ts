@@ -5,13 +5,13 @@ import { CreateUserDto } from "./create-user.dto";
 export class UpdateUserDto extends PartialType(CreateUserDto) {
   @IsNotEmpty()
   @IsEmail()
-  user: string;
+  email: string;
 
   @IsNotEmpty()
-  birthDate: string;
+  birthdate: string;
 
   @IsNotEmpty()
-  userName: string;
+  username: string;
   
   @IsNotEmpty()
   name: string;

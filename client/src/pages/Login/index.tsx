@@ -39,16 +39,13 @@ export function Login() {
 
   const navigate = useNavigate();
 
-  //Submit credentials
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
-    //Check empty form
     const emptyForm = !credentials.user || !credentials.password;
     setEmptyCredentials(emptyForm);
     if (emptyForm) return;
 
-    //Check user database
     for (let user of validCredentials) {
       if (
         user.email === credentials.user &&
