@@ -8,34 +8,45 @@ import landscapeIcon from "../../assets/home-icons/landscape-icon.svg";
 import clipIcon from "../../assets/home-icons/clip-icon.svg";
 import mapIcon from "../../assets/home-icons/map-icon.svg";
 import emojiIcon from "../../assets/home-icons/emoji-icon.svg";
-import { useContext } from "react";
-import { UserContext } from "../../contexts/userContext";
+import { api } from "../../services/api";
+import { useEffect, useState } from "react";
 
 interface PostProps {
-  user: string;
+  _id: string;
+  name: string;
+  user_id: string;
   post_date: string;
   description: string;
   likes: number;
-  comments?: Comments[];
-  url_imagem: string;
+  url_image: string;
   current_user_photo: string;
 }
 
-interface Comments {
-  user: string;
+interface Comment {
+  name: string;
   comment: string;
 }
 
 export function Post({
-  user,
+  _id,
+  name,
   post_date,
   description,
   likes,
-  comments,
-  url_imagem,
+  url_image,
   current_user_photo,
 }: PostProps) {
-  const { getUserName } = useContext(UserContext);
+  const [comments, setComments] = useState<Comment[]>([]);
+
+  useEffect(() => {
+    getComments();
+  }, [_id]);
+
+  async function getComments() {
+    await api.get(`api/v1/posts/${_id}/comments`).then((response) => {
+      setComments(response.data);
+    });
+  }
 
   return (
     <article className={styles.wrapper}>
@@ -47,7 +58,7 @@ export function Post({
             alt='Foto'
           />
           <div className={styles["post-info"]}>
-            <p>{getUserName(user)}</p>
+            <p>{name}</p>
             <p>
               <img src={clock} alt='relógio' />
               60 minutos atrás em <strong>Paisagens Exuberantes</strong>
@@ -118,7 +129,7 @@ export function Post({
 
       <p className={styles["all-comments-header"]}>Todos os comentários</p>
 
-      {comments && (
+      {comments.length && (
         <section className={styles["first-comment"]}>
           <img
             className={styles["profile-picture"]}
@@ -126,7 +137,7 @@ export function Post({
             alt='foto'
           />
           <p>
-            <strong>{getUserName(comments[0].user)}:</strong> {comments[0].comment}
+            <strong>{comments[0].name}:</strong> {comments[0].comment}
           </p>
         </section>
       )}

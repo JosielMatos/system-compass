@@ -10,23 +10,8 @@ import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import homeIcon from "../../assets/home-icon.svg";
 
-interface PostProps {
-  user: string;
-  post_date: string;
-  description: string;
-  likes: number;
-  comments?: Comments[];
-  url_imagem: string;
-}
-
-interface Comments {
-  user: string;
-  comment: string;
-}
-
 export function Home() {
-  const { userDetails } = useContext(UserContext);
-  const [posts, setPosts] = useState<PostProps[]>([]);
+  const { userDetails, getPosts, posts, getFriends } = useContext(UserContext);
   const [post, setPost] = useState("");
   const navigate = useNavigate();
 
@@ -37,29 +22,23 @@ export function Home() {
   });
 
   useEffect(() => {
-    getData();
+    getPosts();
+    getFriends();
   }, []);
-
-  async function getData() {
-    await fetch("http://localhost:5000/api/v1/user/post")
-      .then((res) => res.json())
-      .then((posts) => setPosts(posts.posts))
-      .catch((error) => console.log(error));
-  }
 
   function onPost(e: FormEvent) {
     e.preventDefault();
 
-    const newPost = {
-      user: userDetails.user,
-      post_date: new Date().toString(),
-      description: post,
-      likes: 1,
-      url_imagem: "https://picsum.photos/200/300",
-    };
+    alert('post feito')
 
-    setPosts((prevValues) => [newPost, ...prevValues]);
-    setPost("");
+    // const newPost = {
+    //   name: userDetails.name,
+    //   description: post,
+    //   url_imagem: "https://picsum.photos/200/300",
+    // };
+
+    // setPosts((prevValues) => [newPost, ...prevValues]);
+    // setPost("");
   }
 
   return (

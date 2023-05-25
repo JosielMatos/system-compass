@@ -56,7 +56,7 @@ export function Register() {
       alert("Registrado!");
       navigate('/');
     } else {
-      alert('Something went wrong!')
+      alert('Ops, algo não ocorreu como esperado!')
     }
   }
 

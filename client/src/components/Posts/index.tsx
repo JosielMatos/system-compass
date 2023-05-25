@@ -1,41 +1,40 @@
+import { useEffect } from "react";
+import { api } from "../../services/api";
 import { Post } from "../Post";
 import styles from "./styles.module.css";
 
 interface PostProps {
-  user: string;
+  _id: string;
+  name: string;
+  user_id: string;
   post_date: string;
   description: string;
   likes: number;
-  comments?: Comments[];
-  url_imagem: string;
-}
-
-interface Comments {
-  user: string;
-  comment: string;
+  url_image: string;
 }
 
 interface Posts {
   posts: PostProps[];
-  current_user_photo: string,
+  current_user_photo: string;
 }
 
 export function Posts({ posts, current_user_photo }: Posts) {
   return (
     <div className={styles["posts-list"]}>
       {!posts.length ? (
-        <h2>Loading...</h2>
+        <h2>Parece que não temos posts ainda...</h2>
       ) : (
-        posts.map((post, index) => {
+        posts.map((post) => {
           return (
             <Post
-              key={index}
-              user={post.user}
+              key={post._id}
+              _id={post._id}
+              user_id={post.user_id}
+              name={post.name}
               post_date={post.post_date}
               description={post.description}
               likes={post.likes}
-              comments={post.comments}
-              url_imagem={post.url_imagem}
+              url_image={post.url_image}
               current_user_photo={current_user_photo}
             />
           );

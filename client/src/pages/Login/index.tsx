@@ -3,70 +3,62 @@ import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/userContext";
+import jwt_decode from 'jwt-decode';
 
 import styles from "./styles.module.css";
+import { api } from "../../services/api";
 
 type User = {
+  sub: string;
   name: string;
-  user: string;
+  username: string;
   birthdate: string;
-  password: string;
   email: string;
   profile_photo: string;
 };
 
 export function Login() {
-  const [validCredentials, setValidCredentials] = useState<User[]>([]);
   const [invalidCredentials, setInvalidCredentials] = useState(false);
   const [emptyCredentials, setEmptyCredentials] = useState(false);
   const [credentials, setCredentials] = useState({
-    user: "",
+    email: "",
     password: "",
   });
 
-  const { setUserDetails, setUserList } = useContext(UserContext);
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  async function getData() {
-    await fetch("http://localhost:5000/api/v1/user")
-      .then((res) => res.json())
-      .then((users) => setValidCredentials(users.users))
-      .catch((error) => console.log(error));
-  }
+  const { setUserDetails } = useContext(UserContext);
 
   const navigate = useNavigate();
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
-    const emptyForm = !credentials.user || !credentials.password;
+    const emptyForm = !credentials.email || !credentials.password;
     setEmptyCredentials(emptyForm);
     if (emptyForm) return;
 
-    for (let user of validCredentials) {
-      if (
-        user.email === credentials.user &&
-        user.password === credentials.password
-      ) {
-        setUserDetails({
-          name: user.name,
-          birthdate: user.birthdate,
-          email: user.email,
-          profile_photo: "https://picsum.photos/200/300",
-          user: user.user,
-        });
-        setUserList(validCredentials);
+    try {
+      const {
+        status,
+        data: { token },
+      } = await api
+        .post("/api/v1/users/login", credentials)
+        .then((response) => response);
 
-        navigate("/home");
-
+      if (status === 201) {
+        localStorage.setItem("token", token);
+        const userInfo: User = jwt_decode(token);
+        setUserDetails(userInfo);
+        navigate('/home');
         return;
       }
-    }
 
-    setInvalidCredentials(true);
+      setInvalidCredentials(true);
+    } catch (error) {
+      console.log(error);
+      alert(
+        "Ops, algo não ocorreu como esperado. Não foi possível se conectar com o servidor!"
+      );
+    }
   }
 
   function onChange(e: ChangeEvent<HTMLInputElement>) {
@@ -83,7 +75,7 @@ export function Login() {
             <h3 className={styles["form-label"]}>Login</h3>
 
             <input
-              name='user'
+              name='email'
               type='text'
               placeholder='Usuário'
               className={`${styles.input} ${styles["user-field"]} ${

@@ -6,6 +6,8 @@ import { UserContext } from "../../contexts/userContext";
 export function FriendsList() {
   const { userList } = useContext(UserContext);
 
+  console.log(userList)
+
   return (
     <section className={styles.wrapper}>
       <div className={styles["my-friends-header"]}>
