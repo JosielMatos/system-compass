@@ -1,5 +1,4 @@
 import { ReactNode, createContext, useState } from "react";
-import { api } from "../services/api";
 
 type UserContextData = {
   userDetails: User;
