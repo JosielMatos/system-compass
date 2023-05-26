@@ -22,7 +22,7 @@ interface PostProps {
 }
 
 export function Home() {
-  const { userDetails, getFriends } = useContext(UserContext);
+  const { userDetails } = useContext(UserContext);
   const [posts, setPosts] = useState<PostProps[]>([]);
   const [post, setPost] = useState("");
   const navigate = useNavigate();
@@ -39,7 +39,6 @@ export function Home() {
 
   useEffect(() => {
     getPosts();
-    getFriends();
   }, []);
 
   async function onPost(e: FormEvent) {

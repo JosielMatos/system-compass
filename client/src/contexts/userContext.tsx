@@ -4,12 +4,6 @@ import { api } from "../services/api";
 type UserContextData = {
   userDetails: User;
   setUserDetails: (state: User) => void;
-  // setPosts: (state: PostProps[]) => void;
-  userList: User[];
-  setUserList: (state: User[]) => void;
-  // getPosts: () => void;
-  // posts: PostProps[];
-  getFriends: () => void;
 };
 
 export const UserContext = createContext({} as UserContextData);
@@ -39,31 +33,12 @@ interface PostProps {
 
 export function UserContextProvider({ children }: UserProviderProps) {
   const [userDetails, setUserDetails] = useState({} as User);
-  const [userList, setUserList] = useState([] as User[]);
-
-  
-
-  async function getFriends() {
-    await api
-      .get("api/v1/users")
-      .then((response) => setUserList(response.data));
-    const friends = [...userList].filter(
-      (user) => user._id !== userDetails._id
-    );
-    setUserList(friends);
-  }
 
   return (
     <UserContext.Provider
       value={{
         userDetails,
         setUserDetails,
-        setUserList,
-        userList,
-        // getPosts,
-        // posts,
-        getFriends,
-        // setPosts
       }}
     >
       {children}

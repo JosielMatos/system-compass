@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compareSync } from 'bcrypt';
 import { User } from 'src/users/entities/user.entity';
@@ -16,6 +16,7 @@ export class AuthService {
 
     try {
       user = await this.usersService.findMatch(email);
+      if (!user) throw new NotFoundException();
     } catch (error) {
       return null;
     }
