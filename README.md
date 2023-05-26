@@ -7,8 +7,7 @@ Users are able to login and share their thoughts with everyone.
 
 - TypeScript
 - React
-- NodeJS
-- Express
+- NestJS
 
 ## Screenshots
 
@@ -36,10 +35,16 @@ For each folder, install the dependencies with the following command in your ter
 npm install
 ```
 
-Now you can run the project. On both client and server, run:
+Now you can run the project. On the client folder, run:
 
 ```
 npm run dev
+```
+
+On the server folder, run: 
+
+```
+npm run start:dev
 ```
 
 Your terminal should show the local url of the app being served.
