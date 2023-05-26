@@ -14,11 +14,10 @@ interface PostProps {
 }
 
 interface Posts {
-  posts: PostProps[];
-  current_user_photo: string;
+  posts: PostProps[]
 }
 
-export function Posts({ posts, current_user_photo }: Posts) {
+export function Posts({ posts }: Posts) {
   return (
     <div className={styles["posts-list"]}>
       {!posts.length ? (
@@ -35,7 +34,6 @@ export function Posts({ posts, current_user_photo }: Posts) {
               description={post.description}
               likes={post.likes}
               url_image={post.url_image}
-              current_user_photo={current_user_photo}
             />
           );
         })

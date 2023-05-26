@@ -5,22 +5,24 @@ import landscapeIcon from "../../assets/home-icons/landscape-icon.svg";
 import clipIcon from "../../assets/home-icons/clip-icon.svg";
 import mapIcon from "../../assets/home-icons/map-icon.svg";
 import emojiIcon from "../../assets/home-icons/emoji-icon.svg";
-import { FormEvent } from "react";
+import { FormEvent, useContext } from "react";
+import { UserContext } from "../../contexts/userContext";
 
 interface WriteFieldProps {
   post: string;
   setPost: (state: string) => void;
   onSubmit: (e: FormEvent) => void;
-  profile_photo: string;
 }
 
-export function WriteField({ post, setPost, onSubmit, profile_photo }: WriteFieldProps) {
+export function WriteField({ post, setPost, onSubmit }: WriteFieldProps) {
+  const {userDetails} = useContext(UserContext)
+
   return (
     <form onSubmit={onSubmit} className={styles["write-field"]}>
       <div>
         <img
           className={styles["profile-picture"]}
-          src={profile_photo}
+          src={userDetails.profile_photo}
           alt='Profile picture'
         />
         <input

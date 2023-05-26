@@ -9,11 +9,27 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./styles.module.css";
 import homeIcon from "../../assets/home-icon.svg";
+import { api } from "../../services/api";
+
+interface PostProps {
+  _id: string;
+  name: string;
+  user_id: string;
+  post_date: string;
+  description: string;
+  likes: number;
+  url_image: string;
+}
 
 export function Home() {
-  const { userDetails, getPosts, posts, getFriends } = useContext(UserContext);
+  const { userDetails, getFriends } = useContext(UserContext);
+  const [posts, setPosts] = useState<PostProps[]>([]);
   const [post, setPost] = useState("");
   const navigate = useNavigate();
+
+  async function getPosts() {
+    await api.get("api/v1/posts").then((response) => setPosts(response.data));
+  }
 
   useEffect(() => {
     if (!userDetails.name || !userDetails.profile_photo) {
@@ -26,19 +42,18 @@ export function Home() {
     getFriends();
   }, []);
 
-  function onPost(e: FormEvent) {
+  async function onPost(e: FormEvent) {
     e.preventDefault();
 
-    alert('post feito')
+    const newPost = {
+      user_id: userDetails._id,
+      name: userDetails.name,
+      description: post,
+    }
 
-    // const newPost = {
-    //   name: userDetails.name,
-    //   description: post,
-    //   url_imagem: "https://picsum.photos/200/300",
-    // };
-
-    // setPosts((prevValues) => [newPost, ...prevValues]);
-    // setPost("");
+    const serverResponse = await api.post('/api/v1/posts', newPost).then((response) => response.data);
+    setPosts((prevValues) => [serverResponse, ...prevValues]);
+    setPost("");
   }
 
   return (
@@ -67,11 +82,9 @@ export function Home() {
               post={post}
               setPost={setPost}
               onSubmit={onPost}
-              profile_photo={userDetails.profile_photo}
             />
             <Posts
               posts={posts}
-              current_user_photo={userDetails.profile_photo}
             />
           </section>
 

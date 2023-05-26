@@ -4,10 +4,11 @@ import { api } from "../services/api";
 type UserContextData = {
   userDetails: User;
   setUserDetails: (state: User) => void;
+  // setPosts: (state: PostProps[]) => void;
   userList: User[];
   setUserList: (state: User[]) => void;
-  getPosts: () => void;
-  posts: PostProps[];
+  // getPosts: () => void;
+  // posts: PostProps[];
   getFriends: () => void;
 };
 
@@ -38,12 +39,9 @@ interface PostProps {
 
 export function UserContextProvider({ children }: UserProviderProps) {
   const [userDetails, setUserDetails] = useState({} as User);
-  const [posts, setPosts] = useState<PostProps[]>([]);
   const [userList, setUserList] = useState([] as User[]);
 
-  async function getPosts() {
-    await api.get("api/v1/posts").then((response) => setPosts(response.data));
-  }
+  
 
   async function getFriends() {
     await api
@@ -62,9 +60,10 @@ export function UserContextProvider({ children }: UserProviderProps) {
         setUserDetails,
         setUserList,
         userList,
-        getPosts,
-        posts,
+        // getPosts,
+        // posts,
         getFriends,
+        // setPosts
       }}
     >
       {children}

@@ -9,7 +9,8 @@ import clipIcon from "../../assets/home-icons/clip-icon.svg";
 import mapIcon from "../../assets/home-icons/map-icon.svg";
 import emojiIcon from "../../assets/home-icons/emoji-icon.svg";
 import { api } from "../../services/api";
-import { useEffect, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
+import { UserContext } from "../../contexts/userContext";
 
 interface PostProps {
   _id: string;
@@ -19,7 +20,6 @@ interface PostProps {
   description: string;
   likes: number;
   url_image: string;
-  current_user_photo: string;
 }
 
 interface Comment {
@@ -30,12 +30,14 @@ interface Comment {
 export function Post({
   _id,
   name,
+  user_id,
   post_date,
   description,
   likes,
   url_image,
-  current_user_photo,
 }: PostProps) {
+  const { userDetails } = useContext(UserContext);
+  const [comment, setComment] = useState("");
   const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
@@ -48,13 +50,33 @@ export function Post({
     });
   }
 
+  async function onSubmit(e: FormEvent) {
+    e.preventDefault();
+
+    const newComment = {
+      post_id: _id,
+      name: userDetails.name,
+      comment: comment,
+    };
+
+    const serverResponse = await api
+      .post(`api/v1/posts/${_id}/comments`, newComment)
+      .then((response) => response.data);
+    setComments((prevValues) => [serverResponse, ...prevValues]);
+    setComment("");
+  }
+
   return (
     <article className={styles.wrapper}>
       <header>
         <div className={styles["post-user-info"]}>
           <img
             className={styles["profile-picture"]}
-            src='https://picsum.photos/200?random=1'
+            src={
+              user_id === userDetails._id
+                ? userDetails.profile_photo
+                : "https://picsum.photos/200?random=1"
+            }
             alt='Foto'
           />
           <div className={styles["post-info"]}>
@@ -70,7 +92,7 @@ export function Post({
       </header>
       <img
         className={styles["post-image"]}
-        src='https://source.unsplash.com/random'
+        src={url_image}
         alt='Imagem da postagem'
       />
       <section className={styles["post-links"]}>
@@ -92,44 +114,50 @@ export function Post({
       <section className={styles.comment}>
         <img
           className={styles["profile-picture"]}
-          src={current_user_photo}
+          src={userDetails.profile_photo}
           alt='Foto'
         />
         <div className={styles["input-comment-container"]}>
-          <input type='text' placeholder='O que você está pensando?' />
-          <ul className={styles["comment-icons"]}>
-            <li>
-              <a href='#'>
-                <img src={cameraIcon} alt='Adicionar foto com a câmera' />
-              </a>
-            </li>
-            <li>
-              <a href='#'>
-                <img src={landscapeIcon} alt='Adicionar imagem' />
-              </a>
-            </li>
-            <li>
-              <a href='#'>
-                <img src={clipIcon} alt='Adicionar Arquivo' />
-              </a>
-            </li>
-            <li>
-              <a href='#'>
-                <img src={mapIcon} alt='Adicionar localização' />
-              </a>
-            </li>
-            <li>
-              <a href='#'>
-                <img src={emojiIcon} alt='Adicionar emoji' />
-              </a>
-            </li>
-          </ul>
+          <form onSubmit={onSubmit}>
+            <input
+              type='text'
+              placeholder='O que você está pensando?'
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <ul className={styles["comment-icons"]}>
+              <li>
+                <a href='#'>
+                  <img src={cameraIcon} alt='Adicionar foto com a câmera' />
+                </a>
+              </li>
+              <li>
+                <a href='#'>
+                  <img src={landscapeIcon} alt='Adicionar imagem' />
+                </a>
+              </li>
+              <li>
+                <a href='#'>
+                  <img src={clipIcon} alt='Adicionar Arquivo' />
+                </a>
+              </li>
+              <li>
+                <a href='#'>
+                  <img src={mapIcon} alt='Adicionar localização' />
+                </a>
+              </li>
+              <li>
+                <a href='#'>
+                  <img src={emojiIcon} alt='Adicionar emoji' />
+                </a>
+              </li>
+            </ul>
+          </form>
         </div>
       </section>
 
       <p className={styles["all-comments-header"]}>Todos os comentários</p>
 
-      {comments.length && (
+      {comments.length ? (
         <section className={styles["first-comment"]}>
           <img
             className={styles["profile-picture"]}
@@ -140,7 +168,7 @@ export function Post({
             <strong>{comments[0].name}:</strong> {comments[0].comment}
           </p>
         </section>
-      )}
+      ) : null}
 
       <div className={styles.divider}></div>
 

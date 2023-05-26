@@ -9,7 +9,7 @@ import styles from "./styles.module.css";
 import { api } from "../../services/api";
 
 type User = {
-  sub: string;
+  _id: string;
   name: string;
   username: string;
   birthdate: string;
