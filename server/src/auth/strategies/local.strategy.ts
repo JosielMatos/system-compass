@@ -1,7 +1,7 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 import { AuthService } from '../auth.service';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
@@ -13,7 +13,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     const storedUser = await this.authService.validateUser(email, password);
 
     if (!storedUser)
-      throw new UnauthorizedException('Email e/ou Senha inválidos!');
+      throw new BadRequestException('Email e/ou Senha inválidos!');
 
     return storedUser;
   }
