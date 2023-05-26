@@ -27,6 +27,9 @@ For each folder, install the dependencies with the following command in your ter
 npm install
 ```
 
+You will also need to configure the .env for connection with a mongo database and a secret for the JWT token as
+in the example file.
+
 Now you can run the project. On the client folder, run:
 
 ```
