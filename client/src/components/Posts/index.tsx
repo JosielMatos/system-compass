@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { api } from "../../services/api";
 import { Post } from "../Post";
 import styles from "./styles.module.css";
 
@@ -21,7 +19,7 @@ export function Posts({ posts }: Posts) {
   return (
     <div className={styles["posts-list"]}>
       {!posts.length ? (
-        <h2>Parece que não temos posts ainda...</h2>
+        <h2 className={styles['no-posts']}>Parece que não temos posts ainda...</h2>
       ) : (
         posts.map((post) => {
           return (

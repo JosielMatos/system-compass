@@ -14,21 +14,9 @@ interface UserProviderProps {
 type User = {
   _id: string;
   name: string;
-  username: string;
-  birthdate: string;
   email: string;
   profile_photo: string;
 };
-
-interface PostProps {
-  _id: string;
-  name: string;
-  user_id: string;
-  post_date: string;
-  description: string;
-  likes: number;
-  url_image: string;
-}
 
 export function UserContextProvider({ children }: UserProviderProps) {
   const [userDetails, setUserDetails] = useState({} as User);

@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import homeIcon from "../../assets/home-icon.svg";
 import { api } from "../../services/api";
+import jwtDecode from "jwt-decode";
 
 interface PostProps {
   _id: string;
@@ -21,25 +22,52 @@ interface PostProps {
   url_image: string;
 }
 
+type UserInfo = {
+  _id: string;
+  email: string;
+  name: string;
+  profile_photo: string;
+  iat: number;
+  exp: number;
+};
+
 export function Home() {
-  const { userDetails } = useContext(UserContext);
+  const { userDetails, setUserDetails } = useContext(UserContext);
   const [posts, setPosts] = useState<PostProps[]>([]);
   const [post, setPost] = useState("");
   const navigate = useNavigate();
 
   async function getPosts() {
-    await api.get("api/v1/posts").then((response) => setPosts(response.data));
+    await api
+      .get("api/v1/posts", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => setPosts(response.data));
   }
 
   useEffect(() => {
-    if (!userDetails.name || !userDetails.profile_photo) {
-      navigate("/");
+    if (userDetails.name && userDetails.profile_photo) return;
+
+    const token = localStorage.getItem("token");
+    if (token) {
+      const userInfo: UserInfo = jwtDecode(token);
+
+      if (userInfo.iat >= userInfo.exp) {
+        localStorage.removeItem("token");
+        navigate("/");
+        return;
+      }
+      setUserDetails(userInfo);
+      return;
     }
+    navigate("/");
   });
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [userDetails.name]);
 
   async function onPost(e: FormEvent) {
     e.preventDefault();
@@ -48,9 +76,11 @@ export function Home() {
       user_id: userDetails._id,
       name: userDetails.name,
       description: post,
-    }
+    };
 
-    const serverResponse = await api.post('/api/v1/posts', newPost).then((response) => response.data);
+    const serverResponse = await api
+      .post("/api/v1/posts", newPost)
+      .then((response) => response.data);
     setPosts((prevValues) => [serverResponse, ...prevValues]);
     setPost("");
   }
@@ -77,14 +107,8 @@ export function Home() {
 
         <div className={styles["posts-trends-wrapper"]}>
           <section className={styles["posts"]}>
-            <WriteField
-              post={post}
-              setPost={setPost}
-              onSubmit={onPost}
-            />
-            <Posts
-              posts={posts}
-            />
+            <WriteField post={post} setPost={setPost} onSubmit={onPost} />
+            <Posts posts={posts} />
           </section>
 
           <section className={styles.trends}>

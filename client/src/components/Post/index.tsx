@@ -45,9 +45,15 @@ export function Post({
   }, [_id]);
 
   async function getComments() {
-    await api.get(`api/v1/posts/${_id}/comments`).then((response) => {
-      setComments(response.data);
-    });
+    await api
+      .get(`api/v1/posts/${_id}/comments`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        setComments(response.data);
+      });
   }
 
   async function onSubmit(e: FormEvent) {

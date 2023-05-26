@@ -26,7 +26,9 @@ export function FriendsList() {
       .get("api/v1/users")
       .then((response) => response.data);
 
-    setFriends(users.filter((user) => user._id !== userDetails._id));
+    if (userDetails._id) {
+      setFriends(users.filter((user) => user._id !== userDetails._id));
+    }
   }
 
   return (
