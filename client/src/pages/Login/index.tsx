@@ -3,7 +3,7 @@ import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/userContext";
-import jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode";
 
 import styles from "./styles.module.css";
 import { api } from "../../services/api";
@@ -48,16 +48,20 @@ export function Login() {
         localStorage.setItem("token", token);
         const userInfo: User = jwt_decode(token);
         setUserDetails(userInfo);
-        navigate('/home');
+        navigate("/home");
         return;
       }
 
       setInvalidCredentials(true);
-    } catch (error) {
-      console.log(error);
-      alert(
-        "Ops, algo não ocorreu como esperado. Não foi possível se conectar com o servidor!"
-      );
+    } catch (error: any) {
+      if (error.response && error.response.status === 401) {
+        setInvalidCredentials(true);
+      } else {
+        console.log(error);
+        alert(
+          "Ops, algo não ocorreu como esperado. Não foi possível se conectar com o servidor!"
+        );
+      }
     }
   }
 

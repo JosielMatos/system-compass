@@ -23,7 +23,11 @@ export function FriendsList() {
 
   async function getFriends() {
     const users: User[] = await api
-      .get("api/v1/users")
+      .get("api/v1/users", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((response) => response.data);
 
     if (userDetails._id) {
