@@ -16,5 +16,5 @@ export class UpdatePostDto extends PartialType(CreatePostDto) {
   url_image: string = "https://source.unsplash.com/random";
 
   @IsNumber()
-  likes: number = 0;
+  likes: number;
 }

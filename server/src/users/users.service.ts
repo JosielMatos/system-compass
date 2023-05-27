@@ -18,12 +18,12 @@ export class UsersService {
   }
 
   async findAll() {
-    return await this.UserModel.find().select('-password');
+    return await this.UserModel.find();
   }
 
   async findOne(id: string) {
     try {
-      return await this.UserModel.findById(id).select('-password');
+      return await this.UserModel.findById(id);
     } catch (error) {
       throw new NotFoundException();
     }
@@ -39,7 +39,7 @@ export class UsersService {
         { _id: id },
         { $set: data },
         { new: true },
-      ).select('-password');
+      );
     } catch (error) {
       throw new NotFoundException();
     }
