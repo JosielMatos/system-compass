@@ -11,7 +11,7 @@ export class Post {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ default: new Date() })
+  @Prop()
   post_date: Date;
 
   @Prop({ required: true })
@@ -20,7 +20,7 @@ export class Post {
   @Prop({ default: 0 })
   likes: number;
 
-  @Prop({default: "https://source.unsplash.com/random"})
+  @Prop()
   url_image: string;
 }
 

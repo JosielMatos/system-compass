@@ -18,7 +18,7 @@ export class CreatePostDto {
 
   @IsNotEmpty()
   @IsUrl()
-  url_image: string = "https://source.unsplash.com/random";
+  url_image: string = "https://picsum.photos/800/600";
 
   @IsNumber()
   likes: number = 0;

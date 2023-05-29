@@ -1,4 +1,5 @@
 import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsPreviousDate } from '../helpers/is-previous-date.decorator';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -9,6 +10,7 @@ export class CreateUserDto {
   email: string;
 
   @IsNotEmpty()
+  @IsPreviousDate()
   birthdate: string;
 
   @IsNotEmpty()
