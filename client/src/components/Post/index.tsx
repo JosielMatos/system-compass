@@ -65,10 +65,16 @@ export function Post({
       comment: comment,
     };
 
-    const serverResponse = await api
-      .post(`api/v1/posts/${_id}/comments`, newComment)
-      .then((response) => response.data);
-    setComments((prevValues) => [serverResponse, ...prevValues]);
+    try {
+      const serverResponse = await api
+        .post(`api/v1/posts/${_id}/comments`, newComment)
+        .then((response) => response.data);
+      setComments((prevValues) => [serverResponse, ...prevValues]);
+    } catch (error) {
+      console.log(error);
+      alert("Ops, Não foi possível se conectar com o servidor!");
+    }
+
     setComment("");
   }
 

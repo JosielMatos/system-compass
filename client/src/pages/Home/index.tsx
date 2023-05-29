@@ -78,10 +78,16 @@ export function Home() {
       description: post,
     };
 
-    const serverResponse = await api
-      .post("/api/v1/posts", newPost)
-      .then((response) => response.data);
-    setPosts((prevValues) => [serverResponse, ...prevValues]);
+    try {
+      const serverResponse = await api
+        .post("/api/v1/posts", newPost)
+        .then((response) => response.data);
+      setPosts((prevValues) => [serverResponse, ...prevValues]);
+    } catch (error) {
+      console.log(error);
+      alert("Ops, Não foi possível se conectar com o servidor!");
+    }
+
     setPost("");
   }
 
