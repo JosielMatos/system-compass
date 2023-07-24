@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 import { useNavigate } from "react-router-dom";
@@ -59,7 +59,7 @@ export function Login() {
       } else {
         console.log(error);
         alert(
-          "Ops, algo não ocorreu como esperado. Não foi possível se conectar com o servidor!"
+          "Ops, algo não ocorreu como esperado. Não foi possível conectar com o servidor!"
         );
       }
     }

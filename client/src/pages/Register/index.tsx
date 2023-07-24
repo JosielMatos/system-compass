@@ -64,7 +64,6 @@ export function Register() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
-  //Regex patterns
   const namePattern = /[A-Z][a-zA-Z]+$/;
   const userNamePattern = /^[^\s]{3,}$/;
   const datePattern =
