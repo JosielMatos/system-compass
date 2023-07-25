@@ -67,7 +67,11 @@ export function Post({
 
     try {
       const serverResponse = await api
-        .post(`api/v1/posts/${_id}/comments`, newComment)
+        .post(`api/v1/posts/${_id}/comments`, newComment, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
         .then((response) => response.data);
       setComments((prevValues) => [serverResponse, ...prevValues]);
     } catch (error) {

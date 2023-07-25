@@ -80,7 +80,11 @@ export function Home() {
 
     try {
       const serverResponse = await api
-        .post("/api/v1/posts", newPost)
+        .post("/api/v1/posts", newPost, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
         .then((response) => response.data);
       setPosts((prevValues) => [serverResponse, ...prevValues]);
     } catch (error) {
