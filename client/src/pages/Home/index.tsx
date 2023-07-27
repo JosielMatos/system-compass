@@ -38,13 +38,7 @@ export function Home() {
   const navigate = useNavigate();
 
   async function getPosts() {
-    await api
-      .get("api/v1/posts", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => setPosts(response.data));
+    await api.get("api/v1/posts").then((response) => setPosts(response.data));
   }
 
   useEffect(() => {
@@ -80,11 +74,7 @@ export function Home() {
 
     try {
       const serverResponse = await api
-        .post("/api/v1/posts", newPost, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        })
+        .post("/api/v1/posts", newPost)
         .then((response) => response.data);
       setPosts((prevValues) => [serverResponse, ...prevValues]);
     } catch (error) {
