@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreatePostDto } from './create-post.dto';
-import { IsNotEmpty, IsNumber, IsString, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl } from 'class-validator';
 
 export class UpdatePostDto extends PartialType(CreatePostDto) {
   @IsNotEmpty()
@@ -11,9 +11,9 @@ export class UpdatePostDto extends PartialType(CreatePostDto) {
   @IsString()
   description: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsUrl()
-  url_image: string = "https://source.unsplash.com/random";
+  url_image?: string;
 
   @IsNumber()
   likes: number;

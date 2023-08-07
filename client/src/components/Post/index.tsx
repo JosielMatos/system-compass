@@ -96,11 +96,13 @@ export function Post({
 
         <p className={styles["post-description"]}>{description}</p>
       </header>
-      <img
-        className={styles["post-image"]}
-        src={url_image}
-        alt='Imagem da postagem'
-      />
+      {url_image && (
+        <img
+          className={styles["post-image"]}
+          src={url_image}
+          alt='Imagem da postagem'
+        />
+      )}
       <section className={styles["post-links"]}>
         <a href='#' className={styles.like}>
           <img src={likeIcon} alt='Curtir' />

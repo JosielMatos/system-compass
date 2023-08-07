@@ -1,4 +1,4 @@
-import { IsDate, IsNotEmpty, IsNumber, IsString, IsUrl } from 'class-validator';
+import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl } from 'class-validator';
 
 export class CreatePostDto {
   @IsNotEmpty()
@@ -16,9 +16,9 @@ export class CreatePostDto {
   @IsString()
   description: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsUrl()
-  url_image: string = "https://picsum.photos/800/600";
+  url_image?: string;
 
   @IsNumber()
   likes: number = 0;

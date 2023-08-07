@@ -21,7 +21,7 @@ export class Post {
   likes: number;
 
   @Prop()
-  url_image: string;
+  url_image?: string;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);
