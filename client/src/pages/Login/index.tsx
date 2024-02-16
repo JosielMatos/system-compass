@@ -3,7 +3,7 @@ import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/userContext";
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 import styles from "./styles.module.css";
 import { api } from "../../services/api";
@@ -46,7 +46,7 @@ export function Login() {
 
       if (status === 201) {
         localStorage.setItem("token", token);
-        const userInfo: User = jwt_decode(token);
+        const userInfo: User = jwtDecode(token);
         setUserDetails(userInfo);
         navigate("/home");
         return;
@@ -82,9 +82,8 @@ export function Login() {
               name='email'
               type='text'
               placeholder='Usuário'
-              className={`${styles.input} ${styles["user-field"]} ${
-                invalidCredentials && styles["invalid-credentials"]
-              }`}
+              className={`${styles.input} ${styles["user-field"]} ${invalidCredentials && styles["invalid-credentials"]
+                }`}
               onChange={onChange}
             />
 
@@ -92,9 +91,8 @@ export function Login() {
               name='password'
               type='password'
               placeholder='Senha'
-              className={`${styles.input} ${styles["password-field"]} ${
-                invalidCredentials && styles["invalid-credentials"]
-              }`}
+              className={`${styles.input} ${styles["password-field"]} ${invalidCredentials && styles["invalid-credentials"]
+                }`}
               onChange={onChange}
             />
 

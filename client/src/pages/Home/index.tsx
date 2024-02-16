@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import homeIcon from "../../assets/home-icon.svg";
 import { api } from "../../services/api";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 interface PostProps {
   _id: string;
